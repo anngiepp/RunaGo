@@ -6,3 +6,4 @@ web-build/
 android/
 package-lock.json
 CLAUDE.md
+api/src/generated/

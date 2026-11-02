@@ -17,6 +17,9 @@ expo-env.d.ts
 
 # Builds
 dist/
+
+# Cliente generado de Prisma
+api/src/generated/
 build/
 *.tsbuildinfo
 
