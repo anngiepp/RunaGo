@@ -6,7 +6,35 @@ CLAUDE.md
 .env.*
 !.env.example
 
-# Node y Expo
+# Dependencias
 node_modules/
+
+# Expo
 .expo/
+.expo-shared/
+web-build/
+expo-env.d.ts
+
+# Builds
 dist/
+build/
+*.tsbuildinfo
+
+# Android nativo (se genera con prebuild)
+android/
+*.apk
+*.aab
+*.jks
+*.keystore
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Sistema y editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
