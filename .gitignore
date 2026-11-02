@@ -1,0 +1,12 @@
+# Instrucciones locales para Claude Code
+CLAUDE.md
+
+# Secretos
+.env
+.env.*
+!.env.example
+
+# Node y Expo
+node_modules/
+.expo/
+dist/
