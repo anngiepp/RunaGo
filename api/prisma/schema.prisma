@@ -7,3 +7,158 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+enum Rol {
+  EXPLORADOR
+  ORGANIZADOR
+  ADMIN
+}
+
+enum EstadoEvento {
+  PUBLICADO
+  OCULTO
+}
+
+enum PlanMembresia {
+  EXPLORADOR_PREMIUM
+  ORGANIZADOR_BASICO
+  ORGANIZADOR_PRO
+}
+
+enum EstadoMembresia {
+  ACTIVA
+  VENCIDA
+  CANCELADA
+}
+
+model Usuario {
+  id             Int      @id @default(autoincrement())
+  nombre         String
+  correo         String   @unique
+  contrasenaHash String   @map("contrasena_hash")
+  rol            Rol      @default(EXPLORADOR)
+  creadoEn       DateTime @default(now()) @map("creado_en")
+
+  eventos    Evento[]
+  favoritos  Favorito[]
+  intereses  InteresUsuario[]
+  membresias Membresia[]
+  resenas    Resena[]
+
+  @@map("usuarios")
+}
+
+model Categoria {
+  id     Int    @id @default(autoincrement())
+  nombre String @unique
+
+  eventos   Evento[]
+  intereses InteresUsuario[]
+
+  @@map("categorias")
+}
+
+model Lugar {
+  id        Int    @id @default(autoincrement())
+  nombre    String
+  direccion String
+  distrito  String
+  latitud   Float
+  longitud  Float
+
+  eventos Evento[]
+
+  @@map("lugares")
+}
+
+model Evento {
+  id               Int          @id @default(autoincrement())
+  organizadorId    Int          @map("organizador_id")
+  categoriaId      Int          @map("categoria_id")
+  lugarId          Int          @map("lugar_id")
+  titulo           String
+  descripcion      String
+  etiquetas        String[]     @default([])
+  fechaInicio      DateTime     @map("fecha_inicio")
+  fechaFin         DateTime?    @map("fecha_fin")
+  latitud          Float
+  longitud         Float
+  imagenUrl        String?      @map("imagen_url")
+  precioReferencia Decimal?     @map("precio_referencia") @db.Decimal(8, 2)
+  estado           EstadoEvento @default(PUBLICADO)
+
+  organizador Usuario   @relation(fields: [organizadorId], references: [id], onDelete: Cascade)
+  categoria   Categoria @relation(fields: [categoriaId], references: [id], onDelete: Restrict)
+  lugar       Lugar     @relation(fields: [lugarId], references: [id], onDelete: Restrict)
+
+  favoritos Favorito[]
+  resenas   Resena[]
+
+  @@index([fechaInicio])
+  @@index([categoriaId])
+  @@index([lugarId])
+  @@map("eventos")
+}
+
+model Favorito {
+  usuarioId  Int      @map("usuario_id")
+  eventoId   Int      @map("evento_id")
+  guardadoEn DateTime @default(now()) @map("guardado_en")
+
+  usuario Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  evento  Evento  @relation(fields: [eventoId], references: [id], onDelete: Cascade)
+
+  @@id([usuarioId, eventoId])
+  @@map("favoritos")
+}
+
+model InteresUsuario {
+  usuarioId   Int @map("usuario_id")
+  categoriaId Int @map("categoria_id")
+
+  usuario   Usuario   @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  categoria Categoria @relation(fields: [categoriaId], references: [id], onDelete: Cascade)
+
+  @@id([usuarioId, categoriaId])
+  @@map("intereses_usuario")
+}
+
+model Membresia {
+  id          Int             @id @default(autoincrement())
+  usuarioId   Int             @map("usuario_id")
+  plan        PlanMembresia
+  estado      EstadoMembresia @default(ACTIVA)
+  fechaInicio DateTime        @map("fecha_inicio") @db.Date
+  fechaFin    DateTime        @map("fecha_fin") @db.Date
+
+  usuario Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+
+  @@map("membresias")
+}
+
+model Resena {
+  id           Int      @id @default(autoincrement())
+  usuarioId    Int      @map("usuario_id")
+  eventoId     Int      @map("evento_id")
+  calificacion Int
+  comentario   String
+  creadaEn     DateTime @default(now()) @map("creada_en")
+
+  usuario Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  evento  Evento  @relation(fields: [eventoId], references: [id], onDelete: Cascade)
+  fotos   Foto[]
+
+  @@unique([usuarioId, eventoId])
+  @@index([eventoId])
+  @@map("resenas")
+}
+
+model Foto {
+  id       Int    @id @default(autoincrement())
+  resenaId Int    @map("resena_id")
+  url      String
+
+  resena Resena @relation(fields: [resenaId], references: [id], onDelete: Cascade)
+
+  @@map("fotos")
+}
