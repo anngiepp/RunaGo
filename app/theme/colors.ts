@@ -1,0 +1,16 @@
+export const colors = {
+  primario: '#694A47',
+  menta: '#96C1C5',
+  crema: '#FFF0DE',
+  texto: '#221614',
+  textoSuave: '#6B5754',
+  sobrePrimario: '#FFFFFF',
+  blanco: '#FFFFFF',
+  fondo: '#FAF8F5',
+  borde: 'rgba(34, 22, 20, 0.15)',
+  bordeInput: 'rgba(34, 22, 20, 0.25)',
+  error: '#BA1A1A',
+  errorFondo: '#FFDAD6',
+  exito: '#2E7D4F',
+  exitoFondo: '#DCF1E3',
+} as const;
