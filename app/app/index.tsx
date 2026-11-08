@@ -1,9 +1,0 @@
-import { Text, View } from 'react-native';
-
-export default function InicioScreen() {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>RunaGo</Text>
-    </View>
-  );
-}

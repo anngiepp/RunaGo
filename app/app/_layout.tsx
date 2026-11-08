@@ -37,7 +37,13 @@ export default function RootLayout() {
           headerTintColor: colors.primario,
           headerTitleStyle: { fontFamily: fonts.bold, color: colors.texto },
         }}
-      />
+      >
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen
+          name="componentes"
+          options={{ headerShown: true, title: 'Componentes (temporal)' }}
+        />
+      </Stack>
     </>
   );
 }
