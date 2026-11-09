@@ -90,6 +90,7 @@ La API ya permite el origen `http://localhost:8081` (la web de Expo en desarroll
 - **Explorador con intereses:** pestañas.
 - **Organizador y administrador:** pantalla temporal "Panel en construcción".
 - **"Recordar mi sesión":** activado, el token queda guardado (`localStorage` en web, `expo-secure-store` en Android). Desactivado, solo dura mientras la pestaña o la app sigan abiertas.
+- **Diseño:** las pantallas de acceso usan `AuthLayout`. En celular siguen los diseños MOV de `docs/stitch/` (pantalla blanca con barra superior) y en pantallas anchas los WEB (tarjeta centrada sobre fondo crema).
 - **Al abrir la app** con un token guardado, se valida con `GET /me`. Si la API responde 401, el token se borra y vuelves a la bienvenida. Si no hay conexión, aparece un botón para reintentar.
 
 ## Estructura
@@ -102,7 +103,7 @@ app/
 │   ├── (tabs)/           → pestañas Explorar, Buscar, Plan y Perfil
 │   ├── panel.tsx         → panel TEMPORAL de organizadores y administradores
 │   └── componentes.tsx   → vitrina TEMPORAL del sistema de diseño
-├── components/   → componentes base: Button, Input, Card, Chip, Screen, Checkbox, Segmentado, Alerta…
+├── components/   → componentes base: Button, Input, Card, Chip, Screen, AuthLayout, Checkbox, Segmentado, TarjetaSeleccionable, Alerta…
 ├── theme/        → colores, tipografías, espaciados, radios y sombras
 ├── services/     → llamadas a la API (las pantallas no hacen fetch directo)
 ├── context/      → AuthContext: usuario, token y sesión
