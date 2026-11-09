@@ -1,4 +1,5 @@
 export { Alerta } from './Alerta';
+export { AuthLayout } from './AuthLayout';
 export { Button } from './Button';
 export { Card } from './Card';
 export { Cargando } from './Cargando';
@@ -9,3 +10,4 @@ export { Insignia } from './Insignia';
 export { Logo } from './Logo';
 export { Screen } from './Screen';
 export { Segmentado } from './Segmentado';
+export { TarjetaSeleccionable } from './TarjetaSeleccionable';

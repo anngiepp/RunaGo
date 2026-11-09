@@ -76,7 +76,12 @@ export function Input({
           </Pressable>
         ) : null}
       </View>
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+      {error ? (
+        <View style={styles.filaError}>
+          <Ionicons name="alert-circle-outline" size={16} color={colors.error} />
+          <Text style={styles.error}>{error}</Text>
+        </View>
+      ) : null}
       {!error && ayuda ? <Text style={text.cuerpoSm}>{ayuda}</Text> : null}
     </View>
   );
@@ -109,7 +114,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.regular,
     fontSize: 15,
     color: colors.texto,
-    ...(Platform.OS === 'web' ? { outlineWidth: 0 } : null),
+    ...(Platform.OS === 'web' ? { outlineWidth: 0, outlineColor: 'transparent' } : null),
   },
   enfocado: {
     borderWidth: 2,
@@ -119,8 +124,14 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: colors.error,
   },
+  filaError: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+  },
   error: {
     ...text.cuerpoSm,
     color: colors.error,
+    flexShrink: 1,
   },
 });

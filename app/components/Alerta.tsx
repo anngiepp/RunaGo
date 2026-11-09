@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     padding: spacing.md,
     borderRadius: radius.sm,
-    borderWidth: 1.5,
+    borderWidth: 1,
+    borderLeftWidth: 4,
   },
   texto: {
     flex: 1,

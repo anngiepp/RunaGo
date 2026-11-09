@@ -1,7 +1,13 @@
+import { ComponentProps } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { colors, radius, shadows, spacing, text } from '@/theme';
 
-type Opcion<T extends string> = { valor: T; etiqueta: string };
+type Opcion<T extends string> = {
+  valor: T;
+  etiqueta: string;
+  icono?: ComponentProps<typeof Ionicons>['name'];
+};
 
 type Props<T extends string> = {
   opciones: Opcion<T>[];
@@ -22,6 +28,13 @@ export function Segmentado<T extends string>({ opciones, valor, onCambiar }: Pro
             accessibilityState={{ checked: activa }}
             style={[styles.opcion, activa && styles.activa, activa && shadows.duraSm]}
           >
+            {opcion.icono ? (
+              <Ionicons
+                name={opcion.icono}
+                size={18}
+                color={activa ? colors.sobrePrimario : colors.texto}
+              />
+            ) : null}
             <Text style={[text.boton, { color: activa ? colors.sobrePrimario : colors.texto }]}>
               {opcion.etiqueta}
             </Text>
@@ -44,14 +57,16 @@ const styles = StyleSheet.create({
   },
   opcion: {
     flex: 1,
-    minHeight: 44,
+    minHeight: 48,
+    flexDirection: 'row',
+    gap: spacing.sm,
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: spacing.sm,
     borderRadius: radius.sm,
     borderWidth: 1,
     borderColor: colors.borde,
-    backgroundColor: colors.blanco,
+    backgroundColor: colors.crema,
   },
   activa: {
     backgroundColor: colors.primario,

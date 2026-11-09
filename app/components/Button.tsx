@@ -3,7 +3,7 @@ import { ActivityIndicator, Pressable, StyleProp, StyleSheet, Text, ViewStyle } 
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { colors, radius, shadows, spacing, text } from '@/theme';
 
-type Variante = 'primario' | 'secundario' | 'texto';
+type Variante = 'primario' | 'secundario' | 'contorno' | 'texto';
 
 type Props = {
   titulo: string;
@@ -77,6 +77,11 @@ const styles = StyleSheet.create({
   },
   secundario: {
     backgroundColor: colors.menta,
+    borderWidth: 1.5,
+    borderColor: colors.texto,
+  },
+  contorno: {
+    backgroundColor: colors.crema,
     borderWidth: 1.5,
     borderColor: colors.texto,
   },
