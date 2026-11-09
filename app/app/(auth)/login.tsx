@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Platform, StyleSheet, Text, View } from 'react-native';
 import { router } from 'expo-router';
 import { volver } from '@/lib/navegacion';
-import { Alerta, Button, Card, Checkbox, Input, Insignia, Logo, Screen } from '@/components';
+import { Alerta, AuthLayout, Button, Checkbox, Input } from '@/components';
 import { useAuth } from '@/context/AuthContext';
 import { ApiError } from '@/lib/api';
-import { colors, fonts, spacing, text } from '@/theme';
+import { colors, fonts, text } from '@/theme';
 
 export default function LoginScreen() {
   const { iniciarSesion } = useAuth();
@@ -45,92 +45,85 @@ export default function LoginScreen() {
   }
 
   return (
-    <Screen fondo="crema" centrado anchoMaximo={480} bordes={['top', 'bottom']}>
-      <View style={styles.cabecera}>
-        <Button titulo="Volver" variante="texto" onPress={volver} />
-        <Logo />
+    <AuthLayout onVolver={volver}>
+      <View>
+        <Text style={text.tituloXl}>¡Hola de nuevo!</Text>
+        <Text style={styles.subtitulo}>entra al mapa</Text>
       </View>
-      <Card destacada style={styles.card}>
-        <Insignia texto="Acceso · RunaGo" />
-        <Text style={text.tituloXl}>
-          ¡Hola de <Text style={{ fontFamily: fonts.tituloCursiva }}>nuevo</Text>!
-        </Text>
-        <Text style={text.cuerpo}>Entra para retomar tus planes y eventos guardados.</Text>
+      <Text style={text.cuerpo}>Vuelve a tus planes, ferias y experiencias guardadas.</Text>
 
-        <Input
-          etiqueta="Correo electrónico"
-          icono="mail-outline"
-          placeholder="tu_nombre@correo.pe"
-          value={correo}
-          onChangeText={(v) => cambiar('correo', v, setCorreo)}
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoComplete="email"
-          error={faltantes.correo}
-          invalido={credencialesMalas}
-          returnKeyType="next"
-        />
-        <Input
-          etiqueta="Contraseña"
-          icono="lock-closed-outline"
-          placeholder="Tu contraseña"
-          contrasena
-          value={contrasena}
-          onChangeText={(v) => cambiar('contrasena', v, setContrasena)}
-          autoComplete="current-password"
-          error={faltantes.contrasena}
-          invalido={credencialesMalas}
-          onSubmitEditing={entrar}
-          returnKeyType="go"
-          extraEtiqueta={
-            <Text style={styles.enlace} onPress={() => router.push('/recuperar')}>
-              ¿Olvidaste tu contraseña?
-            </Text>
-          }
-        />
-        <Checkbox
-          etiqueta="Recordar mi sesión en este dispositivo"
-          marcado={recordar}
-          onCambiar={setRecordar}
-        />
+      {error ? <Alerta mensaje={error} /> : null}
 
-        {error ? <Alerta mensaje={error} /> : null}
+      <Input
+        etiqueta="Correo electrónico"
+        icono="at-outline"
+        placeholder="tu_nombre@correo.pe"
+        value={correo}
+        onChangeText={(v) => cambiar('correo', v, setCorreo)}
+        keyboardType="email-address"
+        autoCapitalize="none"
+        autoComplete="email"
+        error={faltantes.correo}
+        invalido={credencialesMalas}
+        returnKeyType="next"
+      />
+      <Input
+        etiqueta="Contraseña"
+        icono="lock-closed-outline"
+        placeholder="Tu contraseña"
+        contrasena
+        value={contrasena}
+        onChangeText={(v) => cambiar('contrasena', v, setContrasena)}
+        autoComplete="current-password"
+        error={faltantes.contrasena}
+        invalido={credencialesMalas}
+        onSubmitEditing={entrar}
+        returnKeyType="go"
+        extraEtiqueta={
+          <Text style={styles.enlace} onPress={() => router.push('/recuperar')}>
+            ¿Olvidaste tu contraseña?
+          </Text>
+        }
+      />
+      <Checkbox
+        etiqueta={
+          Platform.OS === 'web'
+            ? 'Recordar mi sesión en este dispositivo'
+            : 'Recordarme en este celular'
+        }
+        marcado={recordar}
+        onCambiar={setRecordar}
+      />
 
+      <Button
+        titulo="Entrar a RunaGo"
+        iconoDerecha="arrow-forward"
+        cargando={cargando}
+        onPress={entrar}
+      />
+
+      <View style={styles.pie}>
+        <Text style={text.cuerpoSm}>¿Aún no tienes cuenta?</Text>
         <Button
-          titulo="Entrar a RunaGo"
-          iconoDerecha="arrow-forward"
-          cargando={cargando}
-          onPress={entrar}
+          titulo="Crear cuenta"
+          variante="texto"
+          onPress={() => router.replace('/registro')}
         />
-
-        <View style={styles.pie}>
-          <Text style={text.cuerpoSm}>¿Aún no tienes cuenta?</Text>
-          <Button
-            titulo="Crear cuenta"
-            variante="texto"
-            onPress={() => router.replace('/registro')}
-          />
-        </View>
-      </Card>
-    </Screen>
+      </View>
+    </AuthLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  cabecera: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  card: {
-    padding: spacing.lg,
-    gap: spacing.md,
+  subtitulo: {
+    ...text.tituloLg,
+    fontFamily: fonts.tituloCursiva,
+    color: colors.primario,
   },
   enlace: {
     ...text.cuerpoSm,
     fontFamily: fonts.semibold,
     color: colors.primario,
-    textDecorationLine: 'underline',
   },
   pie: {
     flexDirection: 'row',

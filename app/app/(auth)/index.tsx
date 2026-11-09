@@ -1,22 +1,19 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { router } from 'expo-router';
-import { Button, Card, Insignia, Logo, Screen } from '@/components';
-import { fonts, spacing, text } from '@/theme';
+import { AuthLayout, Button, Insignia } from '@/components';
+import { colors, fonts, radius, spacing, text } from '@/theme';
 
 export default function BienvenidaScreen() {
   return (
-    <Screen fondo="crema" centrado anchoMaximo={480} bordes={['top', 'bottom']}>
-      <View style={styles.logo}>
-        <Logo tamano={32} />
-      </View>
-      <Card destacada style={styles.card}>
+    <AuthLayout>
+      <View style={styles.contenido}>
         <Insignia texto="Cultura independiente · Perú" />
         <Text style={text.tituloXl}>
-          Descubre la movida <Text style={{ fontFamily: fonts.tituloCursiva }}>independiente</Text>
+          Encuentra qué hacer, <Text style={styles.resaltado}>cerca de ti.</Text>
         </Text>
         <Text style={text.cuerpoLg}>
-          Encuentra eventos, lugares y experiencias cerca de ti, guárdalos en tu plan y llega en
-          transporte público.
+          Eventos, lugares y experiencias de la movida independiente, con cómo llegar en transporte
+          público.
         </Text>
         <View style={styles.botones}>
           <Button
@@ -26,23 +23,24 @@ export default function BienvenidaScreen() {
           />
           <Button
             titulo="Iniciar sesión"
-            variante="secundario"
+            variante="contorno"
             onPress={() => router.push('/login')}
           />
         </View>
-      </Card>
-    </Screen>
+      </View>
+    </AuthLayout>
   );
 }
 
 const styles = StyleSheet.create({
-  logo: {
-    alignItems: 'center',
-    marginBottom: spacing.sm,
-  },
-  card: {
-    padding: spacing.lg,
+  contenido: {
     gap: spacing.md,
+  },
+  resaltado: {
+    fontFamily: fonts.tituloCursiva,
+    color: colors.primario,
+    backgroundColor: colors.menta,
+    borderRadius: radius.sm,
   },
   botones: {
     gap: spacing.md,
