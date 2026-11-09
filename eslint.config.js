@@ -3,6 +3,7 @@ import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 import prettier from 'eslint-config-prettier';
 import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
 
 export default defineConfig(
   {
@@ -14,6 +15,7 @@ export default defineConfig(
       '**/web-build/',
       '**/android/',
       'api/src/generated/',
+      'app/expo-env.d.ts',
     ],
   },
   js.configs.recommended,
@@ -28,6 +30,10 @@ export default defineConfig(
       '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
       'no-console': ['warn', { allow: ['info', 'warn', 'error'] }],
     },
+  },
+  {
+    files: ['app/**/*.{ts,tsx}'],
+    ...reactHooks.configs.flat.recommended,
   },
   prettier,
 );
