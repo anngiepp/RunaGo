@@ -7,33 +7,53 @@ type Props = {
   children: ReactNode;
   scroll?: boolean;
   bordes?: Edge[];
+  fondo?: 'fondo' | 'crema' | 'blanco';
+  anchoMaximo?: number;
+  centrado?: boolean;
 };
 
-export function Screen({ children, scroll = true, bordes = ['top'] }: Props) {
+export function Screen({
+  children,
+  scroll = true,
+  bordes = ['top'],
+  fondo = 'fondo',
+  anchoMaximo = layout.anchoMaximo,
+  centrado = false,
+}: Props) {
+  const contenido = (
+    <View style={[styles.contenido, { maxWidth: anchoMaximo }, !scroll && styles.lleno]}>
+      {children}
+    </View>
+  );
+
   return (
-    <SafeAreaView style={styles.fondo} edges={bordes}>
+    <SafeAreaView style={[styles.pantalla, { backgroundColor: colors[fondo] }]} edges={bordes}>
       {scroll ? (
-        <ScrollView contentContainerStyle={styles.scroll}>
-          <View style={styles.contenido}>{children}</View>
+        <ScrollView
+          contentContainerStyle={[styles.scroll, centrado && styles.centrado]}
+          keyboardShouldPersistTaps="handled"
+        >
+          {contenido}
         </ScrollView>
       ) : (
-        <View style={[styles.contenido, styles.lleno]}>{children}</View>
+        contenido
       )}
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  fondo: {
+  pantalla: {
     flex: 1,
-    backgroundColor: colors.fondo,
   },
   scroll: {
     flexGrow: 1,
   },
+  centrado: {
+    justifyContent: 'center',
+  },
   contenido: {
     width: '100%',
-    maxWidth: layout.anchoMaximo,
     alignSelf: 'center',
     padding: spacing.md,
     gap: spacing.md,

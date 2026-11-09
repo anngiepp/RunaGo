@@ -1,5 +1,11 @@
+export { Alerta } from './Alerta';
 export { Button } from './Button';
 export { Card } from './Card';
+export { Cargando } from './Cargando';
+export { Checkbox } from './Checkbox';
 export { Chip } from './Chip';
 export { Input } from './Input';
+export { Insignia } from './Insignia';
+export { Logo } from './Logo';
 export { Screen } from './Screen';
+export { Segmentado } from './Segmentado';

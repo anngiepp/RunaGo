@@ -78,7 +78,7 @@ export default function ComponentesScreen() {
       <Input
         etiqueta="Contraseña"
         placeholder="Mínimo 8 caracteres"
-        secureTextEntry
+        contrasena
         error="La contraseña debe tener al menos 8 caracteres"
       />
 
