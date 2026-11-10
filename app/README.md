@@ -48,6 +48,7 @@ npx expo start --tunnel
 ```bash
 npm run android   # abre directo en Android (teléfono conectado o emulador)
 npm run lint      # ESLint con la configuración de la raíz
+npm test          # pruebas con vitest (por ahora, la URL de "Cómo llegar")
 npx expo export -p web   # compila la versión web en dist/
 npx tsc --noEmit         # revisa los tipos (antes corre una vez npx expo start para generar los tipos de rutas)
 ```
@@ -93,6 +94,19 @@ La API ya permite el origen `http://localhost:8081` (la web de Expo en desarroll
 - **Diseño:** las pantallas de acceso siguen `docs/stitch/`: por debajo de 768 px usan los diseños MOV y desde ahí los WEB (`hooks/useEsMovil.ts`). En lugar de fotos y datos inventados usan ilustraciones (`Polaroid`, `MapaDecorativo`, `Destello`) con intereses reales del seed.
 - **Al abrir la app** con un token guardado, se valida con `GET /me`. Si la API responde 401, el token se borra y vuelves a la bienvenida. Si no hay conexión, aparece un botón para reintentar.
 
+## Cómo llegar
+
+`lib/comoLlegar.ts` abre Google Maps con la ruta en transporte público (`travelmode=transit`). No usa claves ni cuentas de Google: solo es un enlace.
+
+```ts
+await abrirComoLlegar({ latitud: -12.0605, longitud: -77.0372 }); // desde la ubicación actual
+await abrirComoLlegar(destino, origen); // desde un origen fijo
+```
+
+- En web abre una pestaña nueva y en Android usa `Linking`. Si no puede abrir Google Maps, lanza un error con el mensaje en español.
+- La URL se arma en `lib/urlComoLlegar.ts` (`construirUrlComoLlegar`), una función pura que rechaza coordenadas que no sean números o estén fuera de rango.
+- En **Explorar** hay un botón de prueba **TEMPORAL** con las coordenadas del MALI (del seed). Se quita en el Sprint 2.
+
 ## Estructura
 
 ```
@@ -108,7 +122,7 @@ app/
 ├── services/     → llamadas a la API (las pantallas no hacen fetch directo)
 ├── context/      → AuthContext: usuario, token y sesión
 ├── hooks/        → hooks propios
-├── lib/          → cliente de la API, almacenamiento del token y utilidades
+├── lib/          → cliente de la API, almacenamiento del token, Cómo llegar y utilidades
 ├── types/        → tipos compartidos (Usuario, Categoria, Rol)
 └── assets/       → íconos y splash
 ```
