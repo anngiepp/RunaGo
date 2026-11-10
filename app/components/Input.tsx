@@ -60,7 +60,7 @@ export function Input({
           conError && styles.conError,
         ]}
       >
-        {icono ? <Ionicons name={icono} size={20} color={colors.textoSuave} /> : null}
+        {icono ? <Ionicons name={icono} size={18} color={colors.textoSuave} /> : null}
         <TextInput
           {...props}
           accessibilityLabel={etiqueta}
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
     color: colors.texto,
   },
   campo: {
-    minHeight: 52,
+    minHeight: 46,
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm,
@@ -129,11 +129,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.blanco,
   },
   campoWeb: {
-    minHeight: 44,
+    minHeight: 42,
   },
   inputWeb: {
-    minHeight: 42,
-    fontSize: 14,
+    minHeight: 40,
   },
   suave: {
     backgroundColor: colors.fondo,
@@ -141,11 +140,11 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    minHeight: 50,
+    minHeight: 44,
     fontFamily: fonts.regular,
-    fontSize: 15,
+    fontSize: 14,
     color: colors.texto,
-    ...(Platform.OS === 'web' ? { outlineWidth: 0, outlineColor: 'transparent' } : null),
+    ...(Platform.OS === 'web' ? { outlineWidth: 0, outlineStyle: 'solid' } : null),
   },
   enfocado: {
     borderWidth: 2,
