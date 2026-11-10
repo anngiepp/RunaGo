@@ -1,6 +1,7 @@
 import { ComponentProps } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useEsMovil } from '@/hooks/useEsMovil';
 import { colors, radius, shadows, spacing, text } from '@/theme';
 
 type Opcion<T extends string> = {
@@ -16,6 +17,8 @@ type Props<T extends string> = {
 };
 
 export function Segmentado<T extends string>({ opciones, valor, onCambiar }: Props<T>) {
+  const sombra = useEsMovil() ? shadows.suave : shadows.duraSm;
+
   return (
     <View style={styles.contenedor} accessibilityRole="radiogroup">
       {opciones.map((opcion) => {
@@ -26,7 +29,7 @@ export function Segmentado<T extends string>({ opciones, valor, onCambiar }: Pro
             onPress={() => onCambiar(opcion.valor)}
             accessibilityRole="radio"
             accessibilityState={{ checked: activa }}
-            style={[styles.opcion, activa && styles.activa, activa && shadows.duraSm]}
+            style={[styles.opcion, activa && styles.activa, activa && sombra]}
           >
             {opcion.icono ? (
               <Ionicons

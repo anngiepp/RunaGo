@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button, Card, Chip, Input, Screen } from '@/components';
-import { colors, fonts, radius, spacing, text } from '@/theme';
+import { colors, radius, spacing, text } from '@/theme';
 
 const muestrasColor = [
   ['primario', colors.primario],
@@ -40,10 +40,10 @@ export default function ComponentesScreen() {
 
       <Text style={text.etiqueta}>Tipografías</Text>
       <Text style={text.tituloXl}>
-        Crea tu cuenta <Text style={{ fontFamily: fonts.tituloCursiva }}>gratis</Text>
+        Crea tu cuenta <Text style={text.acento}>gratis</Text>
       </Text>
-      <Text style={text.tituloLg}>Título grande · Playfair</Text>
-      <Text style={text.tituloMd}>Título mediano · Playfair</Text>
+      <Text style={text.tituloLg}>Título grande · Manrope ExtraBold</Text>
+      <Text style={text.tituloMd}>Título mediano · Manrope ExtraBold</Text>
       <Text style={text.subtitulo}>Subtítulo · Manrope Bold</Text>
       <Text style={text.cuerpoLg}>Cuerpo grande · Manrope Regular</Text>
       <Text style={text.cuerpo}>Cuerpo · Guarda planes y conecta con la movida independiente.</Text>
@@ -78,7 +78,7 @@ export default function ComponentesScreen() {
       <Input
         etiqueta="Contraseña"
         placeholder="Mínimo 8 caracteres"
-        contrasena
+        secureTextEntry
         error="La contraseña debe tener al menos 8 caracteres"
       />
 

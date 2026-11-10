@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { colors, fonts, radius, spacing, text } from '@/theme';
+import { colors, fonts, radius, shadows, spacing, text } from '@/theme';
 
 type Props = TextInputProps & {
   etiqueta: string;
@@ -19,6 +19,8 @@ type Props = TextInputProps & {
   icono?: ComponentProps<typeof Ionicons>['name'];
   contrasena?: boolean;
   extraEtiqueta?: ReactNode;
+  etiquetaNormal?: boolean;
+  relleno?: 'blanco' | 'suave';
 };
 
 export function Input({
@@ -29,6 +31,8 @@ export function Input({
   icono,
   contrasena = false,
   extraEtiqueta,
+  etiquetaNormal = false,
+  relleno = 'blanco',
   style,
   onFocus,
   onBlur,
@@ -41,10 +45,18 @@ export function Input({
   return (
     <View style={styles.contenedor}>
       <View style={styles.filaEtiqueta}>
-        <Text style={text.etiqueta}>{etiqueta}</Text>
+        <Text style={etiquetaNormal ? styles.etiquetaNormal : text.etiqueta}>{etiqueta}</Text>
         {extraEtiqueta}
       </View>
-      <View style={[styles.campo, enfocado && styles.enfocado, conError && styles.conError]}>
+      <View
+        style={[
+          styles.campo,
+          relleno === 'suave' && styles.suave,
+          enfocado && styles.enfocado,
+          enfocado && shadows.halo,
+          conError && styles.conError,
+        ]}
+      >
         {icono ? <Ionicons name={icono} size={20} color={colors.textoSuave} /> : null}
         <TextInput
           {...props}
@@ -97,20 +109,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: spacing.sm,
   },
+  etiquetaNormal: {
+    fontFamily: fonts.bold,
+    fontSize: 13,
+    color: colors.texto,
+  },
   campo: {
-    minHeight: 48,
+    minHeight: 52,
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm,
     paddingHorizontal: spacing.md,
     borderWidth: 1,
-    borderColor: colors.bordeInput,
-    borderRadius: radius.sm,
+    borderColor: colors.bordeSuave,
+    borderRadius: radius.md,
     backgroundColor: colors.blanco,
+  },
+  suave: {
+    backgroundColor: colors.fondo,
+    borderColor: colors.bordeInput,
   },
   input: {
     flex: 1,
-    minHeight: 46,
+    minHeight: 50,
     fontFamily: fonts.regular,
     fontSize: 15,
     color: colors.texto,

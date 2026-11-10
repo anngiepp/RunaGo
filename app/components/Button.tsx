@@ -1,6 +1,7 @@
 import { ComponentProps } from 'react';
 import { ActivityIndicator, Pressable, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useEsMovil } from '@/hooks/useEsMovil';
 import { colors, radius, shadows, spacing, text } from '@/theme';
 
 type Variante = 'primario' | 'secundario' | 'contorno' | 'texto';
@@ -24,6 +25,7 @@ export function Button({
   iconoDerecha,
   style,
 }: Props) {
+  const esMovil = useEsMovil();
   const inactivo = deshabilitado || cargando;
   const colorTexto =
     variante === 'primario'
@@ -32,6 +34,8 @@ export function Button({
         ? colors.texto
         : colors.primario;
   const conSombra = variante !== 'texto' && !inactivo;
+  // En celular los diseños usan sombra suave; en web, la sombra dura del estilo indie
+  const sombra = esMovil ? shadows.suave : shadows.duraSm;
 
   return (
     <Pressable
@@ -42,7 +46,8 @@ export function Button({
       style={({ pressed }) => [
         styles.base,
         styles[variante],
-        conSombra && !pressed && shadows.duraSm,
+        !esMovil && variante === 'primario' && styles.bordeOscuro,
+        conSombra && !pressed && sombra,
         conSombra && pressed && styles.presionado,
         deshabilitado && styles.deshabilitado,
         style,
@@ -64,7 +69,7 @@ const styles = StyleSheet.create({
   base: {
     minHeight: 48,
     paddingHorizontal: spacing.lg,
-    borderRadius: radius.sm,
+    borderRadius: radius.md,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -72,6 +77,8 @@ const styles = StyleSheet.create({
   },
   primario: {
     backgroundColor: colors.primario,
+  },
+  bordeOscuro: {
     borderWidth: 1.5,
     borderColor: colors.texto,
   },
@@ -82,7 +89,7 @@ const styles = StyleSheet.create({
   },
   contorno: {
     backgroundColor: colors.crema,
-    borderWidth: 1.5,
+    borderWidth: 1,
     borderColor: colors.texto,
   },
   texto: {
