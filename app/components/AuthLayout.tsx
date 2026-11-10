@@ -31,7 +31,7 @@ export function AuthLayout({ children, onVolver, pie, fondo = colors.blanco, cab
   const barra = cabecera ?? (
     <View style={[styles.barra, !esMovil && styles.barraEscritorio]}>
       <View style={styles.lado}>{volver}</View>
-      <Logo tamano={esMovil ? 22 : 26} />
+      <Logo tamano={22} />
       <View style={styles.lado} />
     </View>
   );
@@ -64,7 +64,8 @@ const styles = StyleSheet.create({
   },
   barraEscritorio: {
     paddingHorizontal: spacing.xl,
-    minHeight: 72,
+    paddingVertical: spacing.sm + 4,
+    minHeight: 60,
   },
   lado: {
     flex: 1,
@@ -76,9 +77,9 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   circulo: {
-    width: 36,
-    height: 36,
-    borderRadius: 18,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.crema,
   },
   textoVolver: {
-    fontSize: 15,
+    fontSize: 14,
   },
   scroll: {
     flexGrow: 1,

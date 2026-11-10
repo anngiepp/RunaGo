@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useEsMovil } from '@/hooks/useEsMovil';
 import { colors, fonts, radius, shadows, spacing, text } from '@/theme';
 
 type Props = TextInputProps & {
@@ -38,6 +39,7 @@ export function Input({
   onBlur,
   ...props
 }: Props) {
+  const esMovil = useEsMovil();
   const [enfocado, setEnfocado] = useState(false);
   const [oculta, setOculta] = useState(true);
   const conError = Boolean(error) || invalido;
@@ -51,6 +53,7 @@ export function Input({
       <View
         style={[
           styles.campo,
+          !esMovil && styles.campoWeb,
           relleno === 'suave' && styles.suave,
           enfocado && styles.enfocado,
           enfocado && shadows.halo,
@@ -71,7 +74,7 @@ export function Input({
             setEnfocado(false);
             onBlur?.(e);
           }}
-          style={[styles.input, style]}
+          style={[styles.input, !esMovil && styles.inputWeb, style]}
         />
         {contrasena ? (
           <Pressable
@@ -124,6 +127,13 @@ const styles = StyleSheet.create({
     borderColor: colors.bordeSuave,
     borderRadius: radius.md,
     backgroundColor: colors.blanco,
+  },
+  campoWeb: {
+    minHeight: 44,
+  },
+  inputWeb: {
+    minHeight: 42,
+    fontSize: 14,
   },
   suave: {
     backgroundColor: colors.fondo,

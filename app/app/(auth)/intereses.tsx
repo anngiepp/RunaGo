@@ -171,13 +171,13 @@ const styles = StyleSheet.create({
   },
   contenidoWeb: {
     width: '100%',
-    maxWidth: 680,
+    maxWidth: 620,
     alignSelf: 'center',
     paddingVertical: spacing.xl,
   },
   tituloWeb: {
-    fontSize: 40,
-    lineHeight: 46,
+    fontSize: 32,
+    lineHeight: 38,
   },
   intro: {
     ...text.cuerpo,

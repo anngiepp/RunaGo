@@ -88,7 +88,7 @@ export default function BienvenidaScreen() {
       fondo="#FDFBF9"
       cabecera={
         <View style={styles.barraWeb}>
-          <Logo tamano={26} />
+          <Logo tamano={22} />
           <View style={styles.accionesBarra}>
             <Text style={styles.enlaceBarra} onPress={irALogin}>
               Iniciar sesión
@@ -248,7 +248,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: spacing.xl,
-    minHeight: 72,
+    paddingVertical: spacing.sm + 4,
+    minHeight: 60,
     borderBottomWidth: 1,
     borderBottomColor: colors.borde,
     backgroundColor: colors.blanco,
@@ -260,11 +261,11 @@ const styles = StyleSheet.create({
   },
   enlaceBarra: {
     fontFamily: fonts.bold,
-    fontSize: 15,
+    fontSize: 14,
     color: colors.texto,
   },
   botonBarra: {
-    minHeight: 40,
+    minHeight: 36,
     paddingHorizontal: spacing.md,
   },
   hero: {
@@ -272,28 +273,28 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     gap: spacing.xl * 1.5,
-    paddingHorizontal: spacing.xl * 1.5,
+    paddingHorizontal: spacing.xl,
     paddingVertical: spacing.xl * 1.5,
     width: '100%',
-    maxWidth: 1280,
+    maxWidth: 1120,
     alignSelf: 'center',
   },
   heroTexto: {
     flex: 1,
     minWidth: 340,
-    gap: spacing.lg,
+    gap: spacing.md + 4,
   },
   tituloWeb: {
     ...text.tituloXl,
-    fontSize: 54,
-    lineHeight: 60,
-    letterSpacing: -1.6,
+    fontSize: 46,
+    lineHeight: 52,
+    letterSpacing: -1.4,
     color: '#503431',
   },
   introWeb: {
     fontFamily: fonts.regular,
-    fontSize: 17,
-    lineHeight: 27,
+    fontSize: 16,
+    lineHeight: 25,
     color: colors.textoMedio,
   },
   filaBotones: {
@@ -316,7 +317,7 @@ const styles = StyleSheet.create({
   mapaWeb: {
     flex: 1,
     minWidth: 340,
-    height: 420,
+    height: 360,
     borderRadius: radius.lg * 1.5,
     borderWidth: 1,
     borderColor: colors.texto,
@@ -337,11 +338,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.blanco,
   },
   seccion: {
-    gap: spacing.lg,
-    paddingHorizontal: spacing.xl * 1.5,
-    paddingVertical: spacing.xl * 2,
+    gap: spacing.md + 4,
+    paddingHorizontal: spacing.xl,
+    paddingVertical: spacing.xl * 1.5,
     width: '100%',
-    maxWidth: 1280,
+    maxWidth: 1120,
     alignSelf: 'center',
   },
   centrado: {
@@ -353,9 +354,9 @@ const styles = StyleSheet.create({
   },
   tituloSeccion: {
     ...text.tituloXl,
-    fontSize: 42,
-    lineHeight: 50,
-    letterSpacing: -1.2,
+    fontSize: 34,
+    lineHeight: 40,
+    letterSpacing: -1,
   },
   introSeccion: {
     maxWidth: 640,
@@ -369,17 +370,17 @@ const styles = StyleSheet.create({
   },
   paso: {
     flex: 1,
-    minWidth: 260,
-    gap: spacing.md,
-    padding: spacing.lg,
+    minWidth: 240,
+    gap: spacing.sm + 4,
+    padding: spacing.lg - 4,
     borderRadius: radius.lg,
     borderWidth: 1,
     borderColor: colors.bordeInput,
     backgroundColor: colors.blanco,
   },
   numero: {
-    width: 44,
-    height: 44,
+    width: 36,
+    height: 36,
     borderRadius: radius.md,
     alignItems: 'center',
     justifyContent: 'center',
@@ -388,22 +389,22 @@ const styles = StyleSheet.create({
   },
   textoNumero: {
     fontFamily: fonts.titulo,
-    fontSize: 18,
+    fontSize: 16,
   },
   textoPaso: {
     ...text.cuerpo,
     color: colors.textoMedio,
   },
   cta: {
-    gap: spacing.lg,
-    marginHorizontal: spacing.xl * 1.5,
-    marginBottom: spacing.xl * 2,
-    padding: spacing.xl * 1.5,
-    borderRadius: radius.lg * 1.5,
+    gap: spacing.md + 4,
+    marginHorizontal: spacing.xl,
+    marginBottom: spacing.xl * 1.5,
+    padding: spacing.xl,
+    borderRadius: radius.lg + 4,
     borderWidth: 1,
     borderColor: colors.bordeInput,
     backgroundColor: colors.crema,
-    maxWidth: 1180,
+    maxWidth: 1040,
     alignSelf: 'center',
     width: '92%',
   },

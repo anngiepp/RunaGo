@@ -45,6 +45,7 @@ export function Button({
       accessibilityState={{ disabled: inactivo, busy: cargando }}
       style={({ pressed }) => [
         styles.base,
+        !esMovil && styles.baseWeb,
         styles[variante],
         !esMovil && variante === 'primario' && styles.bordeOscuro,
         conSombra && !pressed && sombra,
@@ -57,7 +58,9 @@ export function Button({
         <ActivityIndicator color={colorTexto} />
       ) : (
         <>
-          <Text style={[text.boton, { color: colorTexto }]}>{titulo}</Text>
+          <Text style={[text.boton, !esMovil && styles.textoWeb, { color: colorTexto }]}>
+            {titulo}
+          </Text>
           {iconoDerecha ? <Ionicons name={iconoDerecha} size={18} color={colorTexto} /> : null}
         </>
       )}
@@ -74,6 +77,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: spacing.sm,
+  },
+  baseWeb: {
+    minHeight: 44,
+    paddingHorizontal: spacing.md + 4,
+  },
+  textoWeb: {
+    fontSize: 14,
   },
   primario: {
     backgroundColor: colors.primario,

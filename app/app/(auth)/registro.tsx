@@ -266,22 +266,22 @@ export default function RegistroScreen() {
             <Polaroid
               icono="storefront-outline"
               texto="Ferias · Barranco"
-              ancho={200}
+              ancho={140}
               giro={-3}
               fondo="#FBEBDD"
             />
             <Polaroid
               icono="color-palette-outline"
               texto="Mural y arte urbano"
-              ancho={200}
+              ancho={140}
               giro={2}
               fondo="#F6D9C8"
               style={styles.desplazado}
             />
             <Polaroid
               icono="walk-outline"
-              texto="Deporte al aire libre"
-              ancho={190}
+              texto="Aire libre"
+              ancho={134}
               giro={-2}
               fondo="#E7F0E3"
             />
@@ -318,11 +318,11 @@ export default function RegistroScreen() {
               <Ionicons name="checkmark" size={14} color={colors.texto} />
               <Text style={styles.textoFlotante}>Jazz</Text>
             </View>
-            <Polaroid icono="musical-notes-outline" texto="Jazz en vivo" ancho={200} giro={3} />
+            <Polaroid icono="musical-notes-outline" texto="Jazz en vivo" ancho={140} giro={3} />
             <Polaroid
               icono="disc-outline"
               texto="Indie"
-              ancho={200}
+              ancho={140}
               giro={-3}
               fondo="#EDE3F3"
               style={styles.desplazado}
@@ -330,7 +330,7 @@ export default function RegistroScreen() {
             <Polaroid
               icono="sunny-outline"
               texto="Cultura andina"
-              ancho={190}
+              ancho={134}
               giro={3}
               fondo="#FBEBDD"
             />
@@ -384,9 +384,9 @@ const styles = StyleSheet.create({
   },
   tituloWeb: {
     ...text.tituloXl,
-    fontSize: 38,
-    lineHeight: 44,
-    letterSpacing: -1,
+    fontSize: 30,
+    lineHeight: 36,
+    letterSpacing: -0.8,
   },
   intro: {
     fontFamily: fonts.regular,
@@ -435,12 +435,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'flex-start',
-    gap: spacing.xl * 2,
-    paddingVertical: spacing.xl * 1.5,
+    gap: spacing.xl * 1.5,
+    paddingVertical: spacing.xl,
     paddingHorizontal: spacing.xl,
   },
   lateral: {
-    gap: spacing.xl,
+    gap: spacing.lg,
     paddingTop: spacing.lg,
     alignItems: 'center',
   },
@@ -465,11 +465,11 @@ const styles = StyleSheet.create({
   },
   centro: {
     width: '100%',
-    maxWidth: 560,
+    maxWidth: 460,
   },
   tarjeta: {
-    padding: spacing.xl,
-    gap: spacing.lg,
+    padding: spacing.xl - 8,
+    gap: spacing.md + 4,
     borderRadius: radius.lg,
     borderWidth: 1,
     borderColor: colors.bordeInput,
@@ -477,10 +477,10 @@ const styles = StyleSheet.create({
   },
   cintaTarjeta: {
     position: 'absolute',
-    top: -16,
+    top: -14,
     alignSelf: 'center',
-    width: 140,
-    height: 34,
+    width: 110,
+    height: 28,
     backgroundColor: 'rgba(150, 193, 197, 0.6)',
     borderWidth: 1,
     borderColor: 'rgba(59, 101, 105, 0.25)',

@@ -17,7 +17,8 @@ type Props<T extends string> = {
 };
 
 export function Segmentado<T extends string>({ opciones, valor, onCambiar }: Props<T>) {
-  const sombra = useEsMovil() ? shadows.suave : shadows.duraSm;
+  const esMovil = useEsMovil();
+  const sombra = esMovil ? shadows.suave : shadows.duraSm;
 
   return (
     <View style={styles.contenedor} accessibilityRole="radiogroup">
@@ -29,7 +30,12 @@ export function Segmentado<T extends string>({ opciones, valor, onCambiar }: Pro
             onPress={() => onCambiar(opcion.valor)}
             accessibilityRole="radio"
             accessibilityState={{ checked: activa }}
-            style={[styles.opcion, activa && styles.activa, activa && sombra]}
+            style={[
+              styles.opcion,
+              !esMovil && styles.opcionWeb,
+              activa && styles.activa,
+              activa && sombra,
+            ]}
           >
             {opcion.icono ? (
               <Ionicons
@@ -70,6 +76,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.borde,
     backgroundColor: colors.crema,
+  },
+  opcionWeb: {
+    minHeight: 40,
   },
   activa: {
     backgroundColor: colors.primario,

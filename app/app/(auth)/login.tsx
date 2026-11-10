@@ -214,14 +214,14 @@ export default function LoginScreen() {
               texto="Ferias"
               fondo={colors.crema}
               giro={-8}
-              ancho={150}
+              ancho={112}
               style={styles.polIzq}
             />
             <Polaroid
               icono="color-palette-outline"
               texto="Arte urbano"
               giro={7}
-              ancho={140}
+              ancho={106}
               style={styles.polDer}
             />
             <Polaroid
@@ -229,7 +229,7 @@ export default function LoginScreen() {
               texto="Deporte"
               fondo="#E7F0E3"
               giro={-2}
-              ancho={190}
+              ancho={140}
               style={styles.polCentro}
             />
           </View>
@@ -343,36 +343,37 @@ const styles = StyleSheet.create({
   },
   escritorio: {
     flexDirection: 'row',
-    gap: spacing.xl,
-    padding: spacing.xl,
+    gap: spacing.lg,
+    paddingHorizontal: spacing.xl,
+    paddingVertical: spacing.xl,
     width: '100%',
-    maxWidth: 1500,
+    maxWidth: 1040,
     alignSelf: 'center',
   },
   tarjeta: {
     flex: 1,
-    padding: spacing.xl,
-    gap: spacing.lg,
-    borderRadius: radius.lg * 1.5,
+    padding: spacing.xl - 8,
+    gap: spacing.md + 4,
+    borderRadius: radius.lg + 4,
     borderWidth: 1,
     borderColor: colors.bordeInput,
     backgroundColor: colors.blanco,
   },
   tituloWeb: {
     ...text.tituloXl,
-    fontSize: 42,
-    lineHeight: 46,
-    letterSpacing: -1.2,
+    fontSize: 32,
+    lineHeight: 36,
+    letterSpacing: -0.9,
     color: '#503431',
   },
   acentoWeb: {
-    fontSize: 40,
-    lineHeight: 48,
+    fontSize: 30,
+    lineHeight: 36,
   },
   introWeb: {
     fontFamily: fonts.regular,
-    fontSize: 17,
-    lineHeight: 26,
+    fontSize: 15,
+    lineHeight: 22,
   },
   separador: {
     height: 1,
@@ -384,36 +385,36 @@ const styles = StyleSheet.create({
   },
   tituloPanel: {
     ...text.tituloXl,
-    fontSize: 34,
-    lineHeight: 40,
+    fontSize: 26,
+    lineHeight: 32,
   },
   ilustracion: {
-    height: 380,
+    height: 280,
     alignItems: 'center',
     justifyContent: 'center',
   },
   mancha: {
     position: 'absolute',
-    width: 440,
-    height: 300,
+    width: 340,
+    height: 220,
     bottom: 0,
-    borderRadius: 220,
+    borderRadius: 170,
     transform: [{ rotate: '-8deg' }],
     backgroundColor: colors.mentaSuave,
   },
   polIzq: {
     position: 'absolute',
-    left: '6%',
-    top: 70,
+    left: '8%',
+    top: 50,
   },
   polDer: {
     position: 'absolute',
-    right: '6%',
-    top: 70,
+    right: '8%',
+    top: 50,
   },
   polCentro: {
     position: 'absolute',
-    top: 60,
+    top: 40,
   },
   cita: {
     flexDirection: 'row',
@@ -426,8 +427,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.blanco,
   },
   citaIcono: {
-    width: 44,
-    height: 44,
+    width: 36,
+    height: 36,
     borderRadius: radius.md,
     alignItems: 'center',
     justifyContent: 'center',
@@ -436,6 +437,8 @@ const styles = StyleSheet.create({
   citaTexto: {
     flex: 1,
     fontFamily: fonts.regular,
+    fontSize: 14,
+    lineHeight: 20,
   },
   citaFuerte: {
     fontFamily: fonts.bold,
