@@ -90,7 +90,7 @@ La API ya permite el origen `http://localhost:8081` (la web de Expo en desarroll
 - **Explorador con intereses:** pestañas.
 - **Organizador y administrador:** pantalla temporal "Panel en construcción".
 - **"Recordar mi sesión":** activado, el token queda guardado (`localStorage` en web, `expo-secure-store` en Android). Desactivado, solo dura mientras la pestaña o la app sigan abiertas.
-- **Diseño:** las pantallas de acceso usan `AuthLayout`. En celular siguen los diseños MOV de `docs/stitch/` (pantalla blanca con barra superior) y en pantallas anchas los WEB (tarjeta centrada sobre fondo crema).
+- **Diseño:** las pantallas de acceso siguen `docs/stitch/`: por debajo de 768 px usan los diseños MOV y desde ahí los WEB (`hooks/useEsMovil.ts`). En lugar de fotos y datos inventados usan ilustraciones (`Polaroid`, `MapaDecorativo`, `Destello`) con intereses reales del seed.
 - **Al abrir la app** con un token guardado, se valida con `GET /me`. Si la API responde 401, el token se borra y vuelves a la bienvenida. Si no hay conexión, aparece un botón para reintentar.
 
 ## Estructura
@@ -118,9 +118,9 @@ app/
 Todo sale de `theme/`. Los componentes no usan colores escritos a mano.
 
 - **Colores:** primario `#694A47`, menta `#96C1C5` (siempre con texto oscuro encima), crema `#FFF0DE`, texto `#221614`, fondos `#FFFFFF` y `#FAF8F5`, además de error y éxito.
-- **Tipografías:** Playfair Display para títulos (con cursiva para acentos) y Manrope para la interfaz. Mientras cargan se muestra una pantalla de carga.
-- **Radios:** 8 (0.5rem) y 16 (1rem); los chips usan forma de píldora.
-- **Sombras duras:** desplazadas y sin desenfoque (`shadows.dura` y `shadows.duraSm`).
+- **Tipografías:** como en los diseños de Stitch, los títulos van en Manrope ExtraBold y la palabra de acento en Playfair Display cursiva (`text.acento`). El resto de la interfaz usa Manrope. Mientras cargan las fuentes se muestra una pantalla de carga.
+- **Radios:** 8 (0.5rem), 12 (0.75rem) y 16 (1rem); los chips usan forma de píldora.
+- **Sombras:** duras y sin desenfoque en web (`shadows.dura` y `shadows.duraSm`) y suaves en celular (`shadows.suave`), como en los diseños MOV.
 - **Ancho máximo:** en pantallas anchas el contenido se limita a 720 px y se centra.
 
 Para revisar todo junto: **Perfil → Ver componentes (temporal)**.
