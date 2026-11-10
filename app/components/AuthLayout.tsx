@@ -1,69 +1,49 @@
 import { ReactNode } from 'react';
-import { Pressable, ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Card } from './Card';
 import { Logo } from './Logo';
+import { PieWeb } from './PieWeb';
+import { useEsMovil } from '@/hooks/useEsMovil';
 import { colors, spacing, text } from '@/theme';
-
-const ANCHO_ESCRITORIO = 768;
 
 type Props = {
   children: ReactNode;
   onVolver?: () => void;
   pie?: ReactNode;
-  anchoMaximo?: number;
+  fondo?: string;
+  cabecera?: ReactNode;
 };
 
-// En celular: pantalla blanca con barra superior (diseños MOV).
-// En pantallas anchas: tarjeta centrada sobre fondo crema (diseños WEB).
-export function AuthLayout({ children, onVolver, pie, anchoMaximo = 480 }: Props) {
-  const { width } = useWindowDimensions();
-  const escritorio = width >= ANCHO_ESCRITORIO;
+// Marco de las pantallas de acceso: barra superior, contenido y, en web, el pie de página
+export function AuthLayout({ children, onVolver, pie, fondo = colors.blanco, cabecera }: Props) {
+  const esMovil = useEsMovil();
 
   const volver = onVolver ? (
     <Pressable onPress={onVolver} accessibilityRole="button" style={styles.volver} hitSlop={8}>
-      <Ionicons name="arrow-back" size={22} color={colors.texto} />
-      <Text style={text.subtitulo}>Volver</Text>
+      <View style={!esMovil && styles.circulo}>
+        <Ionicons name="arrow-back" size={esMovil ? 22 : 18} color={colors.texto} />
+      </View>
+      <Text style={[text.subtitulo, styles.textoVolver]}>Volver</Text>
     </Pressable>
   ) : null;
 
-  if (escritorio) {
-    return (
-      <SafeAreaView style={[styles.pantalla, { backgroundColor: colors.crema }]}>
-        <ScrollView
-          contentContainerStyle={styles.scrollEscritorio}
-          keyboardShouldPersistTaps="handled"
-        >
-          <View style={[styles.columna, { maxWidth: anchoMaximo }]}>
-            <View style={styles.barraEscritorio}>
-              {volver ?? <View />}
-              <Logo />
-            </View>
-            <Card destacada style={styles.card}>
-              {children}
-              {pie}
-            </Card>
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    );
-  }
+  const barra = cabecera ?? (
+    <View style={[styles.barra, !esMovil && styles.barraEscritorio]}>
+      <View style={styles.lado}>{volver}</View>
+      <Logo tamano={esMovil ? 22 : 26} />
+      <View style={styles.lado} />
+    </View>
+  );
 
   return (
-    <SafeAreaView
-      style={[styles.pantalla, { backgroundColor: colors.blanco }]}
-      edges={['top', 'bottom']}
-    >
-      <View style={styles.barra}>
-        <View style={styles.lado}>{volver}</View>
-        <Logo />
-        <View style={styles.lado} />
-      </View>
+    <SafeAreaView style={[styles.pantalla, { backgroundColor: fondo }]} edges={['top', 'bottom']}>
+      {barra}
       <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
         <View style={styles.contenido}>{children}</View>
+        {esMovil ? null : <PieWeb />}
       </ScrollView>
-      {pie ? <View style={styles.pie}>{pie}</View> : null}
+      {pie && esMovil ? <View style={styles.pie}>{pie}</View> : null}
     </SafeAreaView>
   );
 }
@@ -80,6 +60,11 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.md,
     borderBottomWidth: 1,
     borderBottomColor: colors.borde,
+    backgroundColor: colors.blanco,
+  },
+  barraEscritorio: {
+    paddingHorizontal: spacing.xl,
+    minHeight: 72,
   },
   lado: {
     flex: 1,
@@ -90,13 +75,24 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
     alignSelf: 'flex-start',
   },
+  circulo: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: colors.borde,
+    backgroundColor: colors.crema,
+  },
+  textoVolver: {
+    fontSize: 15,
+  },
   scroll: {
     flexGrow: 1,
   },
   contenido: {
-    padding: spacing.md,
-    paddingTop: spacing.lg,
-    gap: spacing.md,
+    flex: 1,
   },
   pie: {
     padding: spacing.md,
@@ -104,24 +100,5 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: colors.borde,
     backgroundColor: colors.blanco,
-  },
-  scrollEscritorio: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    padding: spacing.md,
-  },
-  columna: {
-    width: '100%',
-    alignSelf: 'center',
-    gap: spacing.md,
-  },
-  barraEscritorio: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  card: {
-    padding: spacing.lg,
-    gap: spacing.md,
   },
 });

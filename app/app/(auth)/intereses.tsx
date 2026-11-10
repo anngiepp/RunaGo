@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Alerta, AuthLayout, Button, Chip, TarjetaSeleccionable } from '@/components';
+import { useEsMovil } from '@/hooks/useEsMovil';
 import { useAuth } from '@/context/AuthContext';
 import { primerNombre } from '@/lib/formato';
 import { iconoDeInteres } from '@/lib/iconos';
@@ -12,6 +13,7 @@ import type { Categoria } from '@/types';
 const MINIMO = 3;
 
 export default function InteresesScreen() {
+  const esMovil = useEsMovil();
   const { usuario, actualizarUsuario, cerrarSesion } = useAuth();
   const [intereses, setIntereses] = useState<Categoria[]>([]);
   const [elegidos, setElegidos] = useState<number[]>([]);
@@ -80,81 +82,107 @@ export default function InteresesScreen() {
     );
 
   return (
-    <AuthLayout pie={pie} anchoMaximo={600}>
-      <View style={styles.saludo}>
-        <View style={styles.punto} />
-        <Text style={styles.textoSaludo}>¡Hola, {primerNombre(usuario?.nombre ?? '')}! ✦</Text>
-      </View>
-      <View>
-        <Text style={text.tituloXl}>
-          ¿Qué te <Text style={styles.cursiva}>mueve?</Text>
-        </Text>
-        <Text style={text.cuerpo}>
-          Elige al menos {MINIMO} para recomendarte eventos acordes a tu vibra.
-        </Text>
-      </View>
+    <AuthLayout pie={pie}>
+      <View style={[styles.contenido, !esMovil && styles.contenidoWeb]}>
+        <View style={styles.saludo}>
+          <View style={styles.punto} />
+          <Text style={styles.textoSaludo}>¡Hola, {primerNombre(usuario?.nombre ?? '')}! ✦</Text>
+        </View>
+        <View>
+          <Text style={[text.tituloXl, !esMovil && styles.tituloWeb]}>
+            ¿Qué te <Text style={text.acento}>mueve?</Text>
+          </Text>
+          <Text style={styles.intro}>
+            Elige al menos {MINIMO} para recomendarte eventos acordes a tu vibra.
+          </Text>
+        </View>
 
-      {cargando ? (
-        <ActivityIndicator color={colors.primario} style={styles.cargando} />
-      ) : errorCarga ? (
-        <>
-          <Alerta mensaje={errorCarga} />
-          <Button titulo="Reintentar" variante="contorno" onPress={reintentar} />
-        </>
-      ) : (
-        <>
-          <View style={styles.resumen}>
-            <View style={styles.filaResumen}>
-              <Ionicons name="radio-outline" size={18} color={colors.primario} />
-              <Text style={[text.subtitulo, styles.tituloResumen]}>Tus intereses en el radar</Text>
-              <Text style={styles.contador}>
-                {listo ? `${elegidos.length} elegidos` : `${elegidos.length} de ${MINIMO} (mínimo)`}
-              </Text>
-            </View>
-            <View style={styles.barra}>
-              <View
-                style={[
-                  styles.progreso,
-                  { width: `${Math.min(elegidos.length / MINIMO, 1) * 100}%` },
-                ]}
-              />
-            </View>
-            {elegidosConNombre.length > 0 ? (
-              <View style={styles.chips}>
-                {elegidosConNombre.map((interes) => (
-                  <Chip
-                    key={interes.id}
-                    etiqueta={interes.nombre}
-                    seleccionado
-                    onPress={() => alternar(interes.id)}
-                  />
-                ))}
+        {cargando ? (
+          <ActivityIndicator color={colors.primario} style={styles.cargando} />
+        ) : errorCarga ? (
+          <>
+            <Alerta mensaje={errorCarga} />
+            <Button titulo="Reintentar" variante="contorno" onPress={reintentar} />
+          </>
+        ) : (
+          <>
+            <View style={styles.resumen}>
+              <View style={styles.filaResumen}>
+                <Ionicons name="radio-outline" size={18} color={colors.primario} />
+                <Text style={[text.subtitulo, styles.tituloResumen]}>
+                  Tus intereses en el radar
+                </Text>
+                <Text style={styles.contador}>
+                  {listo
+                    ? `${elegidos.length} elegidos`
+                    : `${elegidos.length} de ${MINIMO} (mínimo)`}
+                </Text>
               </View>
-            ) : (
-              <Text style={text.cuerpoSm}>Aún no eliges ninguno.</Text>
-            )}
-          </View>
+              <View style={styles.barra}>
+                <View
+                  style={[
+                    styles.progreso,
+                    { width: `${Math.min(elegidos.length / MINIMO, 1) * 100}%` },
+                  ]}
+                />
+              </View>
+              {elegidosConNombre.length > 0 ? (
+                <View style={styles.chips}>
+                  {elegidosConNombre.map((interes) => (
+                    <Chip
+                      key={interes.id}
+                      etiqueta={interes.nombre}
+                      seleccionado
+                      onPress={() => alternar(interes.id)}
+                    />
+                  ))}
+                </View>
+              ) : (
+                <Text style={text.cuerpoSm}>Aún no eliges ninguno.</Text>
+              )}
+            </View>
 
-          <View style={styles.grilla}>
-            {intereses.map((interes) => (
-              <TarjetaSeleccionable
-                key={interes.id}
-                etiqueta={interes.nombre}
-                icono={iconoDeInteres(interes.nombre)}
-                seleccionada={elegidos.includes(interes.id)}
-                onPress={() => alternar(interes.id)}
-              />
-            ))}
-          </View>
-        </>
-      )}
+            <View style={styles.grilla}>
+              {intereses.map((interes) => (
+                <TarjetaSeleccionable
+                  key={interes.id}
+                  etiqueta={interes.nombre}
+                  icono={iconoDeInteres(interes.nombre)}
+                  seleccionada={elegidos.includes(interes.id)}
+                  onPress={() => alternar(interes.id)}
+                />
+              ))}
+            </View>
+          </>
+        )}
 
-      <Button titulo="Cerrar sesión" variante="texto" onPress={cerrarSesion} />
+        {esMovil ? null : pie}
+        <Button titulo="Cerrar sesión" variante="texto" onPress={cerrarSesion} />
+      </View>
     </AuthLayout>
   );
 }
 
 const styles = StyleSheet.create({
+  contenido: {
+    padding: spacing.md,
+    paddingTop: spacing.lg,
+    gap: spacing.md,
+  },
+  contenidoWeb: {
+    width: '100%',
+    maxWidth: 680,
+    alignSelf: 'center',
+    paddingVertical: spacing.xl,
+  },
+  tituloWeb: {
+    fontSize: 40,
+    lineHeight: 46,
+  },
+  intro: {
+    ...text.cuerpo,
+    color: colors.textoMedio,
+  },
   saludo: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -169,10 +197,6 @@ const styles = StyleSheet.create({
   textoSaludo: {
     fontFamily: fonts.bold,
     fontSize: 14,
-    color: colors.primario,
-  },
-  cursiva: {
-    fontFamily: fonts.tituloCursiva,
     color: colors.primario,
   },
   cargando: {
