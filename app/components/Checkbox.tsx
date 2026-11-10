@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   caja: {
-    width: 22,
-    height: 22,
+    width: 20,
+    height: 20,
     borderRadius: 4,
     borderWidth: 1.5,
     borderColor: colors.texto,

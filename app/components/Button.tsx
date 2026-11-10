@@ -70,7 +70,7 @@ export function Button({
 
 const styles = StyleSheet.create({
   base: {
-    minHeight: 48,
+    minHeight: 46,
     paddingHorizontal: spacing.lg,
     borderRadius: radius.md,
     flexDirection: 'row',
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     gap: spacing.sm,
   },
   baseWeb: {
-    minHeight: 44,
+    minHeight: 42,
     paddingHorizontal: spacing.md + 4,
   },
   textoWeb: {

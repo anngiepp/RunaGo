@@ -166,8 +166,8 @@ export default function InteresesScreen() {
 const styles = StyleSheet.create({
   contenido: {
     padding: spacing.md,
-    paddingTop: spacing.lg,
-    gap: spacing.md,
+    paddingTop: spacing.md + 4,
+    gap: spacing.md - 2,
   },
   contenidoWeb: {
     width: '100%',
@@ -176,8 +176,8 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.xl,
   },
   tituloWeb: {
-    fontSize: 32,
-    lineHeight: 38,
+    fontSize: 30,
+    lineHeight: 36,
   },
   intro: {
     ...text.cuerpo,

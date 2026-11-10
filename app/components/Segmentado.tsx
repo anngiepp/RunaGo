@@ -40,7 +40,7 @@ export function Segmentado<T extends string>({ opciones, valor, onCambiar }: Pro
             {opcion.icono ? (
               <Ionicons
                 name={opcion.icono}
-                size={18}
+                size={16}
                 color={activa ? colors.sobrePrimario : colors.texto}
               />
             ) : null}
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   },
   opcion: {
     flex: 1,
-    minHeight: 48,
+    minHeight: 42,
     flexDirection: 'row',
     gap: spacing.sm,
     alignItems: 'center',
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.crema,
   },
   opcionWeb: {
-    minHeight: 40,
+    minHeight: 38,
   },
   activa: {
     backgroundColor: colors.primario,

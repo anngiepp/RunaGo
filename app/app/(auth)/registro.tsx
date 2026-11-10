@@ -212,22 +212,22 @@ export default function RegistroScreen() {
               <Polaroid
                 icono="storefront-outline"
                 texto="Ferias"
-                ancho={70}
+                ancho={62}
                 giro={-6}
                 fondo={colors.crema}
               />
-              <Polaroid icono="musical-notes-outline" texto="Jazz" ancho={70} giro={3} />
+              <Polaroid icono="musical-notes-outline" texto="Jazz" ancho={62} giro={3} />
               <Polaroid
                 icono="color-palette-outline"
                 texto="Arte urbano"
-                ancho={70}
+                ancho={62}
                 giro={-3}
                 fondo="#F6D9C8"
               />
               <Polaroid
                 icono="sunny-outline"
                 texto="Cultura andina"
-                ancho={70}
+                ancho={62}
                 giro={5}
                 fondo="#E7F0E3"
               />
@@ -343,14 +343,14 @@ export default function RegistroScreen() {
 
 const styles = StyleSheet.create({
   formulario: {
-    gap: spacing.md,
+    gap: spacing.md - 2,
   },
   movil: {
     padding: spacing.md,
-    gap: spacing.md,
+    gap: spacing.md - 2,
   },
   banner: {
-    height: 150,
+    height: 128,
     justifyContent: 'center',
     borderRadius: radius.lg,
     borderWidth: 1,
@@ -379,8 +379,8 @@ const styles = StyleSheet.create({
   },
   tituloMovil: {
     ...text.tituloXl,
-    fontSize: 30,
-    lineHeight: 36,
+    fontSize: 26,
+    lineHeight: 32,
   },
   tituloWeb: {
     ...text.tituloXl,
@@ -390,8 +390,8 @@ const styles = StyleSheet.create({
   },
   intro: {
     fontFamily: fonts.regular,
-    fontSize: 15,
-    lineHeight: 22,
+    fontSize: 14,
+    lineHeight: 21,
     color: colors.textoMedio,
   },
   rol: {

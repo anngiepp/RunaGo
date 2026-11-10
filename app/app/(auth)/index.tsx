@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.blanco,
   },
   mapaMovil: {
-    height: 300,
+    height: 260,
   },
   hoja: {
     marginTop: -spacing.lg,
@@ -221,8 +221,8 @@ const styles = StyleSheet.create({
   },
   tituloMovil: {
     ...text.tituloXl,
-    fontSize: 28,
-    lineHeight: 36,
+    fontSize: 26,
+    lineHeight: 33,
   },
   resaltado: {
     backgroundColor: colors.mentaSuave,

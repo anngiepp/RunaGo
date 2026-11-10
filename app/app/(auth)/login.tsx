@@ -255,8 +255,8 @@ const styles = StyleSheet.create({
   },
   movil: {
     padding: spacing.md,
-    paddingTop: spacing.lg,
-    gap: spacing.md,
+    paddingTop: spacing.md + 4,
+    gap: spacing.md - 2,
   },
   destelloIzq: {
     position: 'absolute',
@@ -272,13 +272,13 @@ const styles = StyleSheet.create({
     ...text.tituloXl,
   },
   acentoMovil: {
-    fontSize: 28,
-    lineHeight: 34,
+    fontSize: 24,
+    lineHeight: 30,
   },
   intro: {
     fontFamily: fonts.semibold,
-    fontSize: 15,
-    lineHeight: 22,
+    fontSize: 14,
+    lineHeight: 21,
     color: colors.textoMedio,
   },
   panelPlanes: {
@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
   },
   planesTitulo: {
     fontFamily: fonts.bold,
-    fontSize: 15,
+    fontSize: 14,
     color: colors.texto,
   },
   planesSub: {
@@ -330,7 +330,7 @@ const styles = StyleSheet.create({
   },
   enlace: {
     fontFamily: fonts.bold,
-    fontSize: 15,
+    fontSize: 14,
     color: colors.primario,
   },
   textoChico: {

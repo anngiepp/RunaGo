@@ -22,7 +22,7 @@ export function AuthLayout({ children, onVolver, pie, fondo = colors.blanco, cab
   const volver = onVolver ? (
     <Pressable onPress={onVolver} accessibilityRole="button" style={styles.volver} hitSlop={8}>
       <View style={!esMovil && styles.circulo}>
-        <Ionicons name="arrow-back" size={esMovil ? 22 : 18} color={colors.texto} />
+        <Ionicons name="arrow-back" size={esMovil ? 20 : 18} color={colors.texto} />
       </View>
       <Text style={[text.subtitulo, styles.textoVolver]}>Volver</Text>
     </Pressable>
@@ -31,7 +31,7 @@ export function AuthLayout({ children, onVolver, pie, fondo = colors.blanco, cab
   const barra = cabecera ?? (
     <View style={[styles.barra, !esMovil && styles.barraEscritorio]}>
       <View style={styles.lado}>{volver}</View>
-      <Logo tamano={22} />
+      <Logo tamano={20} />
       <View style={styles.lado} />
     </View>
   );
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: spacing.md,
-    paddingVertical: spacing.md,
+    paddingVertical: spacing.sm + 4,
     borderBottomWidth: 1,
     borderBottomColor: colors.borde,
     backgroundColor: colors.blanco,
