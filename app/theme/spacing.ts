@@ -6,9 +6,10 @@ export const spacing = {
   xl: 40,
 } as const;
 
-// 0.5rem y 1rem (1rem = 16px)
+// 0.5rem, 0.75rem y 1rem (1rem = 16px)
 export const radius = {
   sm: 8,
+  md: 12,
   lg: 16,
   pill: 999,
 } as const;

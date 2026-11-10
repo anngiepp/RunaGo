@@ -1,5 +1,17 @@
+export { Alerta } from './Alerta';
+export { AuthLayout } from './AuthLayout';
 export { Button } from './Button';
 export { Card } from './Card';
+export { Cargando } from './Cargando';
+export { Destello } from './Destello';
+export { Checkbox } from './Checkbox';
 export { Chip } from './Chip';
 export { Input } from './Input';
+export { Insignia } from './Insignia';
+export { Logo } from './Logo';
+export { MapaDecorativo } from './MapaDecorativo';
+export { PieWeb } from './PieWeb';
+export { Polaroid } from './Polaroid';
 export { Screen } from './Screen';
+export { Segmentado } from './Segmentado';
+export { TarjetaSeleccionable } from './TarjetaSeleccionable';

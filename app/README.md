@@ -49,6 +49,7 @@ npx expo start --tunnel
 npm run android   # abre directo en Android (teléfono conectado o emulador)
 npm run lint      # ESLint con la configuración de la raíz
 npx expo export -p web   # compila la versión web en dist/
+npx tsc --noEmit         # revisa los tipos (antes corre una vez npx expo start para generar los tipos de rutas)
 ```
 
 ## Variables de entorno
@@ -59,25 +60,56 @@ npx expo export -p web   # compila la versión web en dist/
 
 ⚠️ **Las variables `EXPO_PUBLIC_` son públicas.** Expo las mete dentro del código de la app, así que cualquiera puede leerlas. Nunca pongas ahí claves, contraseñas ni tokens.
 
-En el teléfono, `localhost` apunta al propio teléfono, no a tu PC. Para probar con la API local, usa la IP de tu PC en la red (por ejemplo `http://192.168.1.10:3000`).
-
 Después de cambiar el `.env`, reinicia el servidor con `npx expo start --clear`.
+
+## Probar contra la API
+
+1. Levanta la API (ver `api/README.md`):
+
+   ```bash
+   cd api
+   npm run dev
+   ```
+
+2. En `app/`, crea el `.env` a partir de `.env.example` y pon la URL de la API:
+   - **En el navegador de tu PC:** `EXPO_PUBLIC_API_URL=http://localhost:3000`
+   - **En tu celular con Expo Go:** `localhost` **no funciona**, porque en el celular apunta al propio celular. Usa la IP de tu PC en la red Wi-Fi, por ejemplo `EXPO_PUBLIC_API_URL=http://192.168.1.10:3000`.
+
+     Para ver tu IP en Windows, corre `ipconfig` y busca "Dirección IPv4" en el adaptador Wi-Fi. El celular y la PC tienen que estar en la misma red, y la primera vez Windows puede pedirte permiso en el firewall para Node.js: acepta en **redes privadas**.
+
+3. Corre `npx expo start --clear`.
+
+4. Prueba el flujo: **Crear cuenta → elegir intereses → pestañas → Perfil → Cerrar sesión → Iniciar sesión**. El administrador del seed (`ADMIN_EMAIL`) entra a la pantalla temporal "Panel en construcción", igual que los organizadores.
+
+La API ya permite el origen `http://localhost:8081` (la web de Expo en desarrollo). Si usas otro, agrégalo en `CORS_ORIGIN` del `.env` de la API, separado por comas.
+
+## Sesión y redirecciones
+
+- **Sin sesión:** Bienvenida → Iniciar sesión o Crear cuenta.
+- **Explorador sin intereses:** pantalla para elegir intereses (mínimo 3). Solo aparece la primera vez.
+- **Explorador con intereses:** pestañas.
+- **Organizador y administrador:** pantalla temporal "Panel en construcción".
+- **"Recordar mi sesión":** activado, el token queda guardado (`localStorage` en web, `expo-secure-store` en Android). Desactivado, solo dura mientras la pestaña o la app sigan abiertas.
+- **Diseño:** las pantallas de acceso siguen `docs/stitch/`: por debajo de 768 px usan los diseños MOV y desde ahí los WEB (`hooks/useEsMovil.ts`). En lugar de fotos y datos inventados usan ilustraciones (`Polaroid`, `MapaDecorativo`, `Destello`) con intereses reales del seed.
+- **Al abrir la app** con un token guardado, se valida con `GET /me`. Si la API responde 401, el token se borra y vuelves a la bienvenida. Si no hay conexión, aparece un botón para reintentar.
 
 ## Estructura
 
 ```
 app/
 ├── app/          → pantallas (expo-router: cada archivo es una ruta)
-│   ├── _layout.tsx       → carga de fuentes y navegación principal
+│   ├── _layout.tsx       → fuentes, sesión y redirecciones
+│   ├── (auth)/           → bienvenida, login, registro, recuperar e intereses
 │   ├── (tabs)/           → pestañas Explorar, Buscar, Plan y Perfil
+│   ├── panel.tsx         → panel TEMPORAL de organizadores y administradores
 │   └── componentes.tsx   → vitrina TEMPORAL del sistema de diseño
-├── components/   → componentes base: Button, Input, Card, Chip, Screen
+├── components/   → componentes base: Button, Input, Card, Chip, Screen, AuthLayout, Checkbox, Segmentado, TarjetaSeleccionable, Alerta…
 ├── theme/        → colores, tipografías, espaciados, radios y sombras
 ├── services/     → llamadas a la API (las pantallas no hacen fetch directo)
-├── context/      → estado global (por ejemplo, la sesión)
+├── context/      → AuthContext: usuario, token y sesión
 ├── hooks/        → hooks propios
-├── lib/          → utilidades
-├── types/        → tipos compartidos
+├── lib/          → cliente de la API, almacenamiento del token y utilidades
+├── types/        → tipos compartidos (Usuario, Categoria, Rol)
 └── assets/       → íconos y splash
 ```
 
@@ -86,9 +118,9 @@ app/
 Todo sale de `theme/`. Los componentes no usan colores escritos a mano.
 
 - **Colores:** primario `#694A47`, menta `#96C1C5` (siempre con texto oscuro encima), crema `#FFF0DE`, texto `#221614`, fondos `#FFFFFF` y `#FAF8F5`, además de error y éxito.
-- **Tipografías:** Playfair Display para títulos (con cursiva para acentos) y Manrope para la interfaz. Mientras cargan se muestra una pantalla de carga.
-- **Radios:** 8 (0.5rem) y 16 (1rem); los chips usan forma de píldora.
-- **Sombras duras:** desplazadas y sin desenfoque (`shadows.dura` y `shadows.duraSm`).
+- **Tipografías:** como en los diseños de Stitch, los títulos van en Manrope ExtraBold y la palabra de acento en Playfair Display cursiva (`text.acento`). El resto de la interfaz usa Manrope. Mientras cargan las fuentes se muestra una pantalla de carga.
+- **Radios:** 8 (0.5rem), 12 (0.75rem) y 16 (1rem); los chips usan forma de píldora.
+- **Sombras:** duras y sin desenfoque en web (`shadows.dura` y `shadows.duraSm`) y suaves en celular (`shadows.suave`), como en los diseños MOV.
 - **Ancho máximo:** en pantallas anchas el contenido se limita a 720 px y se centra.
 
 Para revisar todo junto: **Perfil → Ver componentes (temporal)**.
