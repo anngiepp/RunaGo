@@ -13,13 +13,14 @@ import {
   Polaroid,
 } from '@/components';
 import { useAuth } from '@/context/AuthContext';
-import { useEsMovil } from '@/hooks/useEsMovil';
+import { useEsCompacto, useEsMovil } from '@/hooks/useEsMovil';
 import { ApiError } from '@/lib/api';
 import { volver } from '@/lib/navegacion';
 import { colors, fonts, radius, shadows, spacing, text } from '@/theme';
 
 export default function LoginScreen() {
   const esMovil = useEsMovil();
+  const compacto = useEsCompacto();
   const { iniciarSesion } = useAuth();
   const [correo, setCorreo] = useState('');
   const [contrasena, setContrasena] = useState('');
@@ -121,7 +122,7 @@ export default function LoginScreen() {
   if (esMovil) {
     return (
       <AuthLayout onVolver={volver}>
-        <View style={styles.movil}>
+        <View style={[styles.movil, compacto && styles.movilCompacto]}>
           <Destello style={styles.destelloIzq} tamano={14} />
           <Destello style={styles.destelloDer} tamano={12} />
           <View>
@@ -132,31 +133,33 @@ export default function LoginScreen() {
             Vuelve a tus planes, toques caletas, ferias y experiencias guardadas.
           </Text>
 
-          <View style={styles.panelPlanes}>
-            <View style={styles.pila}>
-              <Polaroid
-                icono="musical-notes-outline"
-                texto=""
-                ancho={44}
-                giro={-10}
-                style={styles.pilaAtras}
-              />
-              <Polaroid
-                icono="storefront-outline"
-                texto=""
-                ancho={44}
-                giro={4}
-                fondo={colors.crema}
-              />
+          {compacto ? null : (
+            <View style={styles.panelPlanes}>
+              <View style={styles.pila}>
+                <Polaroid
+                  icono="musical-notes-outline"
+                  texto=""
+                  ancho={44}
+                  giro={-10}
+                  style={styles.pilaAtras}
+                />
+                <Polaroid
+                  icono="storefront-outline"
+                  texto=""
+                  ancho={44}
+                  giro={4}
+                  fondo={colors.crema}
+                />
+              </View>
+              <View style={styles.planesTexto}>
+                <Text style={styles.planesTitulo}>
+                  Tus planes te <Text style={text.acento}>esperan</Text>
+                </Text>
+                <Text style={styles.planesSub}>Entra y retoma donde lo dejaste.</Text>
+              </View>
+              <Ionicons name="bookmark-outline" size={20} color={colors.primario} />
             </View>
-            <View style={styles.planesTexto}>
-              <Text style={styles.planesTitulo}>
-                Tus planes te <Text style={text.acento}>esperan</Text>
-              </Text>
-              <Text style={styles.planesSub}>Entra y retoma donde lo dejaste.</Text>
-            </View>
-            <Ionicons name="bookmark-outline" size={20} color={colors.primario} />
-          </View>
+          )}
 
           {formulario}
 
@@ -173,10 +176,10 @@ export default function LoginScreen() {
   }
 
   return (
-    <AuthLayout onVolver={volver} fondo="#FDFBF9">
-      <View style={styles.escritorio}>
-        <View style={[styles.tarjeta, shadows.duraSm]}>
-          <Insignia texto="Acceso indie · Perú" />
+    <AuthLayout onVolver={volver} fondo="#FDFBF9" centrar>
+      <View style={[styles.escritorio, compacto && styles.escritorioCompacto]}>
+        <View style={[styles.tarjeta, compacto && styles.tarjetaCompacta, shadows.duraSm]}>
+          {compacto ? null : <Insignia texto="Acceso indie · Perú" />}
           <View>
             <Text style={styles.tituloWeb}>¡Hola de nuevo!</Text>
             <Text style={[text.acento, styles.acentoWeb]}>entra al mapa</Text>
@@ -187,16 +190,20 @@ export default function LoginScreen() {
           </Text>
           {formulario}
           {crearCuenta}
-          <View style={styles.separador} />
-          <View style={styles.filaCentro}>
-            <Ionicons name="shield-checkmark-outline" size={14} color={colors.turquesa} />
-            <Text style={styles.textoChico}>
-              Cero spam • Plataforma cultural independiente de libre acceso
-            </Text>
-          </View>
+          {compacto ? null : (
+            <>
+              <View style={styles.separador} />
+              <View style={styles.filaCentro}>
+                <Ionicons name="shield-checkmark-outline" size={14} color={colors.turquesa} />
+                <Text style={styles.textoChico}>
+                  Cero spam • Plataforma cultural independiente de libre acceso
+                </Text>
+              </View>
+            </>
+          )}
         </View>
 
-        <View style={[styles.tarjeta, styles.panelCrema]}>
+        <View style={[styles.tarjeta, compacto && styles.tarjetaCompacta, styles.panelCrema]}>
           <View>
             <Text style={styles.tituloPanel}>
               Tus planes te <Text style={text.acento}>esperan</Text>
@@ -204,7 +211,7 @@ export default function LoginScreen() {
             <Text style={styles.intro}>Entra y retoma donde lo dejaste.</Text>
           </View>
 
-          <View style={styles.ilustracion}>
+          <View style={[styles.ilustracion, compacto && styles.ilustracionCompacta]}>
             <View style={styles.mancha} />
             <Destello style={{ position: 'absolute', top: 10, left: 30 }} tamano={22} />
             <Destello style={{ position: 'absolute', bottom: 40, left: 50 }} tamano={18} />
@@ -252,6 +259,10 @@ export default function LoginScreen() {
 const styles = StyleSheet.create({
   formulario: {
     gap: spacing.md,
+  },
+  movilCompacto: {
+    paddingTop: spacing.sm,
+    gap: spacing.sm + 2,
   },
   movil: {
     padding: spacing.md,
@@ -349,6 +360,17 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 1040,
     alignSelf: 'center',
+  },
+  escritorioCompacto: {
+    paddingVertical: spacing.sm,
+  },
+  tarjetaCompacta: {
+    paddingVertical: spacing.md + 2,
+    gap: spacing.sm + 4,
+  },
+  ilustracionCompacta: {
+    height: 220,
+    transform: [{ scale: 0.85 }],
   },
   tarjeta: {
     flex: 1,

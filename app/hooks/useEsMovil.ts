@@ -7,3 +7,9 @@ export function useEsMovil() {
   const { width } = useWindowDimensions();
   return width < ANCHO_ESCRITORIO;
 }
+
+// Pantallas bajas (laptops de 768 px o celulares pequeños): se quitan adornos para que todo entre sin desplazarse
+export function useEsCompacto() {
+  const { width, height } = useWindowDimensions();
+  return width < ANCHO_ESCRITORIO ? height < 720 : height < 820;
+}

@@ -13,7 +13,7 @@ import {
   Segmentado,
 } from '@/components';
 import { useAuth } from '@/context/AuthContext';
-import { useEsMovil } from '@/hooks/useEsMovil';
+import { useEsCompacto, useEsMovil } from '@/hooks/useEsMovil';
 import { ApiError } from '@/lib/api';
 import { volver } from '@/lib/navegacion';
 import type { DatosRegistro } from '@/services/auth';
@@ -35,6 +35,7 @@ function validar(nombre: string, correo: string, contrasena: string): Errores {
 
 export default function RegistroScreen() {
   const esMovil = useEsMovil();
+  const compacto = useEsCompacto();
   const { width } = useWindowDimensions();
   const params = useLocalSearchParams<{ rol?: string }>();
   const { registrar } = useAuth();
@@ -114,7 +115,7 @@ export default function RegistroScreen() {
       ];
 
   const formulario = (
-    <View style={styles.formulario}>
+    <View style={[styles.formulario, compacto && styles.formularioCompacto]}>
       <View style={styles.rol}>
         <Segmentado opciones={opcionesRol} valor={rol} onCambiar={setRol} />
         {esMovil ? (
@@ -207,41 +208,43 @@ export default function RegistroScreen() {
     return (
       <AuthLayout onVolver={volver}>
         <View style={styles.movil}>
-          <View style={styles.banner}>
-            <View style={styles.tira}>
-              <Polaroid
-                icono="storefront-outline"
-                texto="Ferias"
-                ancho={62}
-                giro={-6}
-                fondo={colors.crema}
-              />
-              <Polaroid icono="musical-notes-outline" texto="Jazz" ancho={62} giro={3} />
-              <Polaroid
-                icono="color-palette-outline"
-                texto="Arte urbano"
-                ancho={62}
-                giro={-3}
-                fondo="#F6D9C8"
-              />
-              <Polaroid
-                icono="sunny-outline"
-                texto="Cultura andina"
-                ancho={62}
-                giro={5}
-                fondo="#E7F0E3"
-              />
+          {compacto ? null : (
+            <View style={styles.banner}>
+              <View style={styles.tira}>
+                <Polaroid
+                  icono="storefront-outline"
+                  texto="Ferias"
+                  ancho={62}
+                  giro={-6}
+                  fondo={colors.crema}
+                />
+                <Polaroid icono="musical-notes-outline" texto="Jazz" ancho={62} giro={3} />
+                <Polaroid
+                  icono="color-palette-outline"
+                  texto="Arte urbano"
+                  ancho={62}
+                  giro={-3}
+                  fondo="#F6D9C8"
+                />
+                <Polaroid
+                  icono="sunny-outline"
+                  texto="Cultura andina"
+                  ancho={62}
+                  giro={5}
+                  fondo="#E7F0E3"
+                />
+              </View>
+              <View style={[styles.etiquetaFlotante, { left: spacing.md, bottom: spacing.sm }]}>
+                <Text style={styles.textoFlotante}>Indie</Text>
+              </View>
+              <View style={[styles.etiquetaFlotante, { alignSelf: 'center', top: spacing.xs }]}>
+                <Text style={styles.textoFlotante}>Arte urbano</Text>
+              </View>
+              <View style={[styles.etiquetaFlotante, { right: spacing.md, bottom: spacing.sm }]}>
+                <Text style={styles.textoFlotante}>Cultura andina</Text>
+              </View>
             </View>
-            <View style={[styles.etiquetaFlotante, { left: spacing.md, bottom: spacing.sm }]}>
-              <Text style={styles.textoFlotante}>Indie</Text>
-            </View>
-            <View style={[styles.etiquetaFlotante, { alignSelf: 'center', top: spacing.xs }]}>
-              <Text style={styles.textoFlotante}>Arte urbano</Text>
-            </View>
-            <View style={[styles.etiquetaFlotante, { right: spacing.md, bottom: spacing.sm }]}>
-              <Text style={styles.textoFlotante}>Cultura andina</Text>
-            </View>
-          </View>
+          )}
           {titulo}
           <Text style={styles.intro}>
             Guarda planes, arma tu ruta y descubre la movida de todo el Perú.
@@ -255,8 +258,8 @@ export default function RegistroScreen() {
   const conLaterales = width >= 1100;
 
   return (
-    <AuthLayout onVolver={volver} fondo={colors.crema}>
-      <View style={styles.escritorio}>
+    <AuthLayout onVolver={volver} fondo={colors.crema} centrar>
+      <View style={[styles.escritorio, compacto && styles.escritorioCompacto]}>
         {conLaterales ? (
           <View style={styles.lateral}>
             <View style={[styles.chipLateral, shadows.duraSm]}>
@@ -278,33 +281,39 @@ export default function RegistroScreen() {
               fondo="#F6D9C8"
               style={styles.desplazado}
             />
-            <Polaroid
-              icono="walk-outline"
-              texto="Aire libre"
-              ancho={134}
-              giro={-2}
-              fondo="#E7F0E3"
-            />
+            {compacto ? null : (
+              <Polaroid
+                icono="walk-outline"
+                texto="Aire libre"
+                ancho={134}
+                giro={-2}
+                fondo="#E7F0E3"
+              />
+            )}
           </View>
         ) : null}
 
         <View style={styles.centro}>
           <Destello style={{ position: 'absolute', top: -10, left: -50 }} />
           <Destello style={{ position: 'absolute', top: -10, right: -50 }} />
-          <View style={[styles.tarjeta, shadows.duraSm]}>
+          <View style={[styles.tarjeta, compacto && styles.tarjetaCompacta, shadows.duraSm]}>
             <View style={styles.cintaTarjeta} />
-            <Insignia
-              texto={
-                rol === 'EXPLORADOR'
-                  ? 'Perfil descubridor · Acceso libre'
-                  : 'Perfil organizador · Acceso libre'
-              }
-            />
+            {compacto ? null : (
+              <Insignia
+                texto={
+                  rol === 'EXPLORADOR'
+                    ? 'Perfil descubridor · Acceso libre'
+                    : 'Perfil organizador · Acceso libre'
+                }
+              />
+            )}
             <View style={styles.encabezado}>
               {titulo}
-              <Text style={styles.intro}>
-                Guarda planes, arma rutas y conecta con la movida independiente de todo el Perú.
-              </Text>
+              {compacto ? null : (
+                <Text style={styles.intro}>
+                  Guarda planes, arma rutas y conecta con la movida independiente de todo el Perú.
+                </Text>
+              )}
             </View>
             {formulario}
           </View>
@@ -327,13 +336,15 @@ export default function RegistroScreen() {
               fondo="#EDE3F3"
               style={styles.desplazado}
             />
-            <Polaroid
-              icono="sunny-outline"
-              texto="Cultura andina"
-              ancho={134}
-              giro={3}
-              fondo="#FBEBDD"
-            />
+            {compacto ? null : (
+              <Polaroid
+                icono="sunny-outline"
+                texto="Cultura andina"
+                ancho={134}
+                giro={3}
+                fondo="#FBEBDD"
+              />
+            )}
           </View>
         ) : null}
       </View>
@@ -344,6 +355,16 @@ export default function RegistroScreen() {
 const styles = StyleSheet.create({
   formulario: {
     gap: spacing.md - 2,
+  },
+  formularioCompacto: {
+    gap: spacing.sm + 2,
+  },
+  escritorioCompacto: {
+    paddingVertical: spacing.sm,
+  },
+  tarjetaCompacta: {
+    paddingVertical: spacing.md + 2,
+    gap: spacing.sm + 4,
   },
   movil: {
     padding: spacing.md,

@@ -13,10 +13,18 @@ type Props = {
   pie?: ReactNode;
   fondo?: string;
   cabecera?: ReactNode;
+  centrar?: boolean;
 };
 
 // Marco de las pantallas de acceso: barra superior, contenido y, en web, el pie de página
-export function AuthLayout({ children, onVolver, pie, fondo = colors.blanco, cabecera }: Props) {
+export function AuthLayout({
+  children,
+  onVolver,
+  pie,
+  fondo = colors.blanco,
+  cabecera,
+  centrar = false,
+}: Props) {
   const esMovil = useEsMovil();
 
   const volver = onVolver ? (
@@ -39,10 +47,14 @@ export function AuthLayout({ children, onVolver, pie, fondo = colors.blanco, cab
   return (
     <SafeAreaView style={[styles.pantalla, { backgroundColor: fondo }]} edges={['top', 'bottom']}>
       {barra}
-      <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
-        <View style={styles.contenido}>{children}</View>
-        {esMovil ? null : <PieWeb />}
+      <ScrollView
+        contentContainerStyle={[styles.scroll, centrar && styles.centrado]}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={!centrar && styles.contenido}>{children}</View>
+        {esMovil || centrar ? null : <PieWeb />}
       </ScrollView>
+      {!esMovil && centrar ? <PieWeb /> : null}
       {pie && esMovil ? <View style={styles.pie}>{pie}</View> : null}
     </SafeAreaView>
   );
@@ -94,6 +106,9 @@ const styles = StyleSheet.create({
   },
   contenido: {
     flex: 1,
+  },
+  centrado: {
+    justifyContent: 'center',
   },
   pie: {
     padding: spacing.md,
