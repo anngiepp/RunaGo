@@ -17,6 +17,19 @@ export function authenticate(req: Request, _res: Response, next: NextFunction) {
   next();
 }
 
+// Si llega un token válido deja al usuario en req.usuario; si no, sigue como visitante
+export function authOptional(req: Request, _res: Response, next: NextFunction) {
+  const header = req.headers.authorization;
+  if (header?.startsWith('Bearer ')) {
+    try {
+      req.usuario = verificarToken(header.slice(7));
+    } catch {
+      req.usuario = undefined;
+    }
+  }
+  next();
+}
+
 export function requireRol(...roles: Rol[]) {
   return (req: Request, _res: Response, next: NextFunction) => {
     if (!req.usuario || !roles.includes(req.usuario.rol)) {

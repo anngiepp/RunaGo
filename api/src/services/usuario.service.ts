@@ -38,3 +38,8 @@ export async function actualizarIntereses(usuarioId: number, categoriaIds: numbe
 
   return obtenerPerfil(usuarioId);
 }
+
+export async function actualizarNombre(usuarioId: number, nombre: string) {
+  await prisma.usuario.update({ where: { id: usuarioId }, data: { nombre } });
+  return obtenerPerfil(usuarioId);
+}
