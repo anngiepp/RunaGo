@@ -80,7 +80,7 @@ Después de cambiar el `.env`, reinicia el servidor con `npx expo start --clear`
 
 3. Corre `npx expo start --clear`.
 
-4. Prueba el flujo: **Crear cuenta → elegir intereses → pestañas → Perfil → Cerrar sesión → Iniciar sesión**. El administrador del seed (`ADMIN_EMAIL`) entra a la pantalla temporal "Panel en construcción", igual que los organizadores.
+4. Prueba el flujo: **Crear cuenta → elegir intereses → Explorar (filtra por categoría) → Detalle → Cómo llegar → Perfil → Cerrar sesión → Iniciar sesión**. El administrador del seed (`ADMIN_EMAIL`) entra a la pantalla temporal "Panel en construcción", igual que los organizadores.
 
 La API ya permite el origen `http://localhost:8081` (la web de Expo en desarrollo). Si usas otro, agrégalo en `CORS_ORIGIN` del `.env` de la API, separado por comas.
 
@@ -94,6 +94,12 @@ La API ya permite el origen `http://localhost:8081` (la web de Expo en desarroll
 - **Diseño:** las pantallas de acceso siguen `docs/stitch/`: por debajo de 768 px usan los diseños MOV y desde ahí los WEB (`hooks/useEsMovil.ts`). En lugar de fotos y datos inventados usan ilustraciones (`Polaroid`, `MapaDecorativo`, `Destello`) con intereses reales del seed.
 - **Al abrir la app** con un token guardado, se valida con `GET /me`. Si la API responde 401, el token se borra y vuelves a la bienvenida. Si no hay conexión, aparece un botón para reintentar.
 
+## Explorar y Detalle
+
+- **Explorar** (`app/(tabs)/index.tsx`) lista los eventos próximos de `GET /events`, de 10 en 10 con "Ver más eventos". Los chips de arriba filtran por categoría y empiezan por los intereses del usuario. Tiene estados de cargando, vacío y error con "Reintentar".
+- **Detalle** (`app/evento/[id].tsx`) muestra `GET /events/:id`: categoría, etiquetas, fecha y horario, lugar, precio referencial, organizador, descripción, la ficha de transporte del lugar (solo si existe) y el botón "Cómo llegar". En celular el botón queda fijo abajo; en web va en la columna derecha.
+- Las llamadas están en `services/eventos.ts`. Si un evento no tiene imagen, se muestra el ícono de su categoría (`components/PortadaEvento.tsx`), sin fotos inventadas.
+
 ## Cómo llegar
 
 `lib/comoLlegar.ts` abre Google Maps con la ruta en transporte público (`travelmode=transit`). No usa claves ni cuentas de Google: solo es un enlace.
@@ -105,7 +111,7 @@ await abrirComoLlegar(destino, origen); // desde un origen fijo
 
 - En web abre una pestaña nueva y en Android usa `Linking`. Si no puede abrir Google Maps, lanza un error con el mensaje en español.
 - La URL se arma en `lib/urlComoLlegar.ts` (`construirUrlComoLlegar`), una función pura que rechaza coordenadas que no sean números o estén fuera de rango.
-- En **Explorar** hay un botón de prueba **TEMPORAL** con las coordenadas del MALI (del seed). Se quita en el Sprint 2.
+- Se usa en el **Detalle del evento**, con las coordenadas del lugar.
 
 ## Estructura
 

@@ -185,7 +185,7 @@ Después de probar en el celular, vuelve a poner `localhost` si usas el navegado
 
 ### 7. Probar que todo funciona
 
-- Flujo: **Crear cuenta → elegir intereses → Explorar → "Cómo llegar" (prueba temporal) → Perfil → Cerrar sesión → Iniciar sesión**.
+- Flujo: **Crear cuenta → elegir intereses → Explorar → filtrar por categoría → Detalle → "Cómo llegar" → Perfil → Cerrar sesión → Iniciar sesión**.
 - Pruebas y revisiones:
 
 ```bash
