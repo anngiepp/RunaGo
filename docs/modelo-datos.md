@@ -30,14 +30,17 @@ Las categorías también son los intereses de los usuarios (géneros, subcultura
 
 ## Lugar (`lugares`)
 
-| Campo     | Tipo   | Notas               |
-| --------- | ------ | ------------------- |
-| id        | Int    | PK, autoincremental |
-| nombre    | String |                     |
-| direccion | String |                     |
-| distrito  | String |                     |
-| latitud   | Float  |                     |
-| longitud  | Float  |                     |
+| Campo              | Tipo    | Notas                                                                     |
+| ------------------ | ------- | ------------------------------------------------------------------------- |
+| id                 | Int     | PK, autoincremental                                                       |
+| nombre             | String  |                                                                           |
+| direccion          | String  |                                                                           |
+| distrito           | String  |                                                                           |
+| latitud            | Float   |                                                                           |
+| longitud           | Float   |                                                                           |
+| paraderoCercano    | String? | Opcional. Estación o paradero más cercano, por ejemplo "Estación Bulevar" |
+| servicioTransporte | String? | Opcional. Por ejemplo "Metropolitano" o "Metro de Lima · Línea 1"         |
+| minutosAPie        | Int?    | Opcional. Minutos caminando desde el paradero                             |
 
 **Relaciones:** aloja muchos `Evento`. No se puede borrar un lugar que tenga eventos.
 
@@ -66,11 +69,12 @@ Las categorías también son los intereses de los usuarios (géneros, subcultura
 
 ## Favorito (`favoritos`)
 
-| Campo      | Tipo     | Notas                      |
-| ---------- | -------- | -------------------------- |
-| usuarioId  | Int      | PK compuesta, FK → Usuario |
-| eventoId   | Int      | PK compuesta, FK → Evento  |
-| guardadoEn | DateTime | Fecha en que se guardó     |
+| Campo      | Tipo     | Notas                                             |
+| ---------- | -------- | ------------------------------------------------- |
+| usuarioId  | Int      | PK compuesta, FK → Usuario                        |
+| eventoId   | Int      | PK compuesta, FK → Evento                         |
+| guardadoEn | DateTime | Fecha en que se guardó                            |
+| enPlan     | Boolean  | Si está en el plan de salida. Por defecto `false` |
 
 ## InteresUsuario (`intereses_usuario`)
 
@@ -123,7 +127,7 @@ La migración inicial activa RLS (Row Level Security) en todas las tablas. Así 
 
 ## Datos de ejemplo (seed)
 
-`npm run db:seed` crea 15 categorías, 8 lugares de Lima (coordenadas aproximadas), 30 eventos ficticios con fechas en los próximos 30 días, 1 administrador (`ADMIN_EMAIL` / `ADMIN_PASSWORD`) y 2 organizadores de prueba (`organizador1@runago.test` y `organizador2@runago.test`).
+`npm run db:seed` crea 15 categorías, 8 lugares de Lima (coordenadas y ficha de transporte aproximadas), 30 eventos ficticios con fechas en los próximos 30 días, 1 administrador (`ADMIN_EMAIL` / `ADMIN_PASSWORD`) y 2 organizadores de prueba (`organizador1@runago.test` y `organizador2@runago.test`).
 
 Se puede correr varias veces sin duplicar datos. La contraseña de los organizadores sale de `ORGANIZADOR_PASSWORD` o, si no existe, se genera al azar y se muestra una sola vez en la consola, al crearlos.
 

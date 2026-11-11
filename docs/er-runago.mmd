@@ -36,6 +36,9 @@ erDiagram
     string direccion
     float latitud
     float longitud
+    string paradero_cercano
+    string servicio_transporte
+    int minutos_a_pie
   }
   CATEGORIAS {
     int id PK
@@ -45,6 +48,7 @@ erDiagram
     int usuario_id PK
     int evento_id PK
     datetime guardado_en
+    boolean en_plan
   }
   INTERESES_USUARIO {
     int usuario_id PK

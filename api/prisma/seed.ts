@@ -34,7 +34,7 @@ const categorias = [
   'Cultura general',
 ];
 
-// Coordenadas aproximadas: verificar antes de usarlas en producción
+// Coordenadas y ficha de transporte aproximadas: verificar antes de usarlas en producción
 const lugares = [
   {
     nombre: 'Teatro Municipal de Lima',
@@ -42,6 +42,9 @@ const lugares = [
     distrito: 'Cercado de Lima',
     latitud: -12.0471,
     longitud: -77.036,
+    paraderoCercano: 'Estación Jirón de la Unión',
+    servicioTransporte: 'Metropolitano',
+    minutosAPie: 6,
   },
   {
     nombre: 'Museo de Arte de Lima (MALI)',
@@ -49,6 +52,9 @@ const lugares = [
     distrito: 'Cercado de Lima',
     latitud: -12.0605,
     longitud: -77.0372,
+    paraderoCercano: 'Estación Central',
+    servicioTransporte: 'Metropolitano',
+    minutosAPie: 5,
   },
   {
     nombre: 'Parque de la Reserva',
@@ -56,6 +62,9 @@ const lugares = [
     distrito: 'Cercado de Lima',
     latitud: -12.0703,
     longitud: -77.0339,
+    paraderoCercano: 'Estación Estadio Nacional',
+    servicioTransporte: 'Metropolitano',
+    minutosAPie: 5,
   },
   {
     nombre: 'Gran Teatro Nacional',
@@ -63,6 +72,9 @@ const lugares = [
     distrito: 'San Borja',
     latitud: -12.0865,
     longitud: -77.001,
+    paraderoCercano: 'Estación La Cultura',
+    servicioTransporte: 'Metro de Lima · Línea 1',
+    minutosAPie: 6,
   },
   {
     nombre: 'Parque Kennedy',
@@ -70,6 +82,9 @@ const lugares = [
     distrito: 'Miraflores',
     latitud: -12.1211,
     longitud: -77.0296,
+    paraderoCercano: 'Estación Ricardo Palma',
+    servicioTransporte: 'Metropolitano',
+    minutosAPie: 9,
   },
   {
     nombre: 'Centro Cultural Británico',
@@ -77,6 +92,9 @@ const lugares = [
     distrito: 'Miraflores',
     latitud: -12.1219,
     longitud: -77.0285,
+    paraderoCercano: 'Estación Benavides',
+    servicioTransporte: 'Metropolitano',
+    minutosAPie: 10,
   },
   {
     nombre: 'Bajada de Baños',
@@ -84,6 +102,9 @@ const lugares = [
     distrito: 'Barranco',
     latitud: -12.1495,
     longitud: -77.0228,
+    paraderoCercano: 'Estación Bulevar',
+    servicioTransporte: 'Metropolitano',
+    minutosAPie: 7,
   },
   {
     nombre: 'Mercado N.º 1 de Surquillo',
@@ -91,6 +112,9 @@ const lugares = [
     distrito: 'Surquillo',
     latitud: -12.1129,
     longitud: -77.0257,
+    paraderoCercano: 'Estación Ricardo Palma',
+    servicioTransporte: 'Metropolitano',
+    minutosAPie: 3,
   },
 ];
 

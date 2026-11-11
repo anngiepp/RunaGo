@@ -66,6 +66,11 @@ model Lugar {
   latitud   Float
   longitud  Float
 
+  // Ficha de transporte público (opcional)
+  paraderoCercano    String? @map("paradero_cercano")
+  servicioTransporte String? @map("servicio_transporte")
+  minutosAPie        Int?    @map("minutos_a_pie")
+
   eventos Evento[]
 
   @@map("lugares")
@@ -104,6 +109,7 @@ model Favorito {
   usuarioId  Int      @map("usuario_id")
   eventoId   Int      @map("evento_id")
   guardadoEn DateTime @default(now()) @map("guardado_en")
+  enPlan     Boolean  @default(false) @map("en_plan")
 
   usuario Usuario @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
   evento  Evento  @relation(fields: [eventoId], references: [id], onDelete: Cascade)
