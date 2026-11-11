@@ -15,3 +15,5 @@ export { Polaroid } from './Polaroid';
 export { Screen } from './Screen';
 export { Segmentado } from './Segmentado';
 export { TarjetaSeleccionable } from './TarjetaSeleccionable';
+export { PortadaEvento } from './PortadaEvento';
+export { TarjetaEvento } from './TarjetaEvento';
