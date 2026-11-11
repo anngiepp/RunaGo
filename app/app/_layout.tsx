@@ -45,6 +45,7 @@ function Navegacion() {
       </Stack.Protected>
       <Stack.Protected guard={esExplorador && !necesitaIntereses}>
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="evento/[id]" />
         <Stack.Screen
           name="componentes"
           options={{ headerShown: true, title: 'Componentes (temporal)' }}
