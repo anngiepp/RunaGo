@@ -4,6 +4,23 @@ Plataforma web y Android para descubrir eventos, lugares y experiencias en Perú
 
 Proyecto de titulación (línea StartUp) de Tecsup.
 
+## Esta rama: `feature/auth-roles`
+
+**Objetivo:** que las personas puedan crear su cuenta e iniciar sesión de forma segura, y que cada rol solo pueda hacer lo que le corresponde.
+
+**Qué cambió:**
+
+- `POST /auth/registro` y `POST /auth/login`: contraseñas cifradas con bcrypt y sesiones con token JWT.
+- El registro solo permite Explorador u Organizador; nadie puede crearse como administrador.
+- Middlewares `authenticate` (pide el token) y `requireRol` (revisa el rol).
+- Perfil e intereses: `GET /me`, `PUT /me/intereses` y `GET /categorias`.
+- Errores en español con un formato único: `{ ok: false, error }`.
+- 12 pruebas con vitest y supertest de registro, login y roles.
+
+**Qué representa en la aplicación:** es lo que está detrás de las pantallas de crear cuenta, iniciar sesión y elegir intereses.
+
+**Cómo verlo:** en `api/`, `npm test`. También puedes probar los endpoints con Postman o curl siguiendo `api/README.md`.
+
 ## ¿Qué es RunaGo?
 
 RunaGo ayuda a jóvenes de 18 a 35 años (y también a turistas) a encontrar qué hacer cerca de ellos. Hay tres tipos de usuario:
