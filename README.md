@@ -4,6 +4,22 @@ Plataforma web y Android para descubrir eventos, lugares y experiencias en Perú
 
 Proyecto de titulación (línea StartUp) de Tecsup.
 
+## Esta rama: `feature/como-llegar-cierre`
+
+**Objetivo:** construir la función que diferencia a RunaGo, "Cómo llegar" en transporte público, y cerrar el Sprint 1.
+
+**Qué cambió:**
+
+- `lib/comoLlegar.ts`: abre Google Maps con la ruta en transporte público (`travelmode=transit`). Es solo un enlace: no usa claves ni APIs de pago.
+- La URL se arma en una función pura (`lib/urlComoLlegar.ts`) con 5 pruebas de vitest.
+- Botón de prueba temporal en Explorar, con las coordenadas del MALI.
+- Este README con los pasos para levantar todo desde cero en un PC nuevo.
+- `docs/sprint-1.md` con el resumen del sprint.
+
+**Qué representa en la aplicación:** es el botón "Cómo llegar". Te lleva desde donde estás hasta el evento usando bus, Metropolitano o Metro.
+
+**Cómo verlo:** en Explorar toca "Cómo llegar": se abre Google Maps con la ruta en transporte público. En `app/`, `npm test` corre las pruebas.
+
 ## ¿Qué es RunaGo?
 
 RunaGo ayuda a jóvenes de 18 a 35 años (y también a turistas) a encontrar qué hacer cerca de ellos. Hay tres tipos de usuario:
