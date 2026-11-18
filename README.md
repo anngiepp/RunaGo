@@ -4,6 +4,23 @@ Plataforma web y Android para descubrir eventos, lugares y experiencias en Perú
 
 Proyecto de titulación (línea StartUp) de Tecsup.
 
+## Esta rama: `feature/login-intereses`
+
+**Objetivo:** conectar la app con la API para que una persona pueda registrarse, iniciar sesión y elegir sus intereses, con pantallas iguales a los diseños de Stitch.
+
+**Qué cambió:**
+
+- Cliente de la API (`lib/api.ts`) con errores en español y tiempo límite de espera.
+- Sesión guardada de forma segura: `expo-secure-store` en Android y `localStorage` o `sessionStorage` en web.
+- `AuthContext` con iniciar sesión, registrarse y cerrar sesión.
+- Pantallas de bienvenida, iniciar sesión, crear cuenta y elegir intereses, en versión celular (MOV) y escritorio (WEB).
+- Redirecciones por rol: el explorador sin intereses va a elegirlos; con intereses, a las pestañas. Organizador y administrador van a un panel temporal.
+- Escala compacta: login y registro ocupan la pantalla sin hacer scroll.
+
+**Qué representa en la aplicación:** es la puerta de entrada. Es lo primero que ve cualquier persona que abre RunaGo.
+
+**Cómo verlo:** con la API corriendo, en `app/` corre `npx expo start --clear` y presiona `w`. Prueba crear cuenta → elegir intereses → Perfil → cerrar sesión → iniciar sesión.
+
 ## ¿Qué es RunaGo?
 
 RunaGo ayuda a jóvenes de 18 a 35 años (y también a turistas) a encontrar qué hacer cerca de ellos. Hay tres tipos de usuario:
