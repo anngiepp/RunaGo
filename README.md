@@ -4,6 +4,25 @@ Plataforma web y Android para descubrir eventos, lugares y experiencias en Perú
 
 Proyecto de titulación (línea StartUp) de Tecsup.
 
+## Esta rama: `feature/explorador-completo`
+
+**Objetivo:** que la API tenga todo lo que necesita el explorador: ver eventos, buscarlos, encontrar los cercanos, guardarlos, armar un plan de salida y recibir recomendaciones.
+
+**Qué cambió:**
+
+- Migración que solo agrega columnas: la ficha de transporte de cada lugar (paradero, servicio y minutos a pie) y `enPlan` en favoritos.
+- `GET /events` con paginación y filtros por categoría, interés, distrito, texto y fechas.
+- `GET /events/near`, que ordena por distancia con la fórmula de Haversine.
+- `GET /events/:id`, `GET /categories` y `GET /districts`.
+- Favoritos y plan de salida: `/favorites` y `/plan`, con la distancia y los minutos estimados entre cada parada.
+- Recomendador propio (`services/recommender.service.ts`): puntúa por intereses en común, cercanía y fecha, y explica el motivo.
+- `PATCH /me` para cambiar el nombre.
+- 34 pruebas nuevas; en total, 46 pruebas en la API.
+
+**Qué representa en la aplicación:** son los datos detrás de Explorar, Buscar, el Mapa, el Plan, Favoritos y Recomendados. Las pantallas se conectan en las siguientes ramas.
+
+**Cómo verlo:** en `api/`, `npx prisma migrate deploy`, `npm run db:seed` y `npm test`. Después abre, por ejemplo, http://localhost:3000/events?interest=jazz.
+
 ## ¿Qué es RunaGo?
 
 RunaGo ayuda a jóvenes de 18 a 35 años (y también a turistas) a encontrar qué hacer cerca de ellos. Hay tres tipos de usuario:
