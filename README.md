@@ -4,6 +4,23 @@ Plataforma web y Android para descubrir eventos, lugares y experiencias en Perú
 
 Proyecto de titulación (línea StartUp) de Tecsup.
 
+## Esta rama: `feature/api-base`
+
+**Objetivo:** levantar el servidor de la API, que más adelante va a responder a la app web y Android.
+
+**Qué cambió:**
+
+- Servidor Express con TypeScript en `api/`, organizado por capas: `routes/`, `controllers/`, `services/`, `middlewares/` y `config/`.
+- Variables de entorno validadas con zod: si falta una, la API no arranca y avisa en español.
+- Prisma configurado para conectarse a PostgreSQL en Supabase.
+- Endpoints de salud: `GET /health` (la API responde) y `GET /health/db` (la base de datos conecta).
+- Fin de línea LF forzado con `.gitattributes`, para que Windows y Linux no choquen.
+- README de `api/` con instalación, variables y uso.
+
+**Qué representa en la aplicación:** es el "motor" que todavía no se ve. Desde aquí la app va a pedir los datos.
+
+**Cómo verlo:** en `api/`, `npm install`, crea el `.env` desde `.env.example`, corre `npm run dev` y abre http://localhost:3000/health.
+
 ## ¿Qué es RunaGo?
 
 RunaGo ayuda a jóvenes de 18 a 35 años (y también a turistas) a encontrar qué hacer cerca de ellos. Hay tres tipos de usuario:
