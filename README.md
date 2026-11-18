@@ -4,24 +4,26 @@ Plataforma web y Android para descubrir eventos, lugares y experiencias en Perú
 
 Proyecto de titulación (línea StartUp) de Tecsup.
 
-## Esta rama: `feature/explorador-completo`
+## Esta rama: `feature/pantallas-explorador`
 
-**Objetivo:** que la API tenga todo lo que necesita el explorador: ver eventos, buscarlos, encontrar los cercanos, guardarlos, armar un plan de salida y recibir recomendaciones.
+**Objetivo:** que la app muestre los eventos reales de la base de datos, en las pantallas Explorar y Detalle.
 
 **Qué cambió:**
 
-- Migración que solo agrega columnas: la ficha de transporte de cada lugar (paradero, servicio y minutos a pie) y `enPlan` en favoritos.
-- `GET /events` con paginación y filtros por categoría, interés, distrito, texto y fechas.
-- `GET /events/near`, que ordena por distancia con la fórmula de Haversine.
-- `GET /events/:id`, `GET /categories` y `GET /districts`.
-- Favoritos y plan de salida: `/favorites` y `/plan`, con la distancia y los minutos estimados entre cada parada.
-- Recomendador propio (`services/recommender.service.ts`): puntúa por intereses en común, cercanía y fecha, y explica el motivo.
-- `PATCH /me` para cambiar el nombre.
-- 34 pruebas nuevas; en total, 46 pruebas en la API.
+- `services/eventos.ts` con las llamadas a `GET /events`, `GET /events/:id` y `GET /categories`.
+- **Explorar:**
+  - tarjetas de eventos reales con categoría, título, fecha, distrito y precio referencial ("Libre" si es gratis)
+  - chips para filtrar por categoría, que empiezan por los intereses del usuario
+  - "Ver más eventos" y estados de cargando, vacío y error con "Reintentar"
+- **Detalle del evento:**
+  - fecha y horario, lugar, precio referencial y organizador
+  - descripción y ficha de transporte (paradero, servicio y minutos a pie)
+  - botón "Cómo llegar" con las coordenadas reales del lugar
+- Se quitó el botón de prueba temporal de "Cómo llegar".
 
-**Qué representa en la aplicación:** son los datos detrás de Explorar, Buscar, el Mapa, el Plan, Favoritos y Recomendados. Las pantallas se conectan en las siguientes ramas.
+**Qué representa en la aplicación:** es lo que más se ve. El explorador entra, ve qué hay para hacer, filtra por lo que le gusta, abre un evento y sabe cómo llegar.
 
-**Cómo verlo:** en `api/`, `npx prisma migrate deploy`, `npm run db:seed` y `npm test`. Después abre, por ejemplo, http://localhost:3000/events?interest=jazz.
+**Cómo verlo:** con la API corriendo y el seed aplicado, en `app/` corre `npx expo start --clear` y presiona `w`. Inicia sesión → Explorar → toca un chip → abre un evento → "Cómo llegar".
 
 ## ¿Qué es RunaGo?
 
