@@ -4,6 +4,22 @@ Plataforma web y Android para descubrir eventos, lugares y experiencias en Perú
 
 Proyecto de titulación (línea StartUp) de Tecsup.
 
+## Esta rama: `feature/app-base-tema`
+
+**Objetivo:** crear la app y su identidad visual, para que todas las pantallas que vengan después se vean iguales.
+
+**Qué cambió:**
+
+- Proyecto Expo con TypeScript y expo-router, un solo código para web y Android.
+- Tema "RunaGo Indie Youth": colores (café, menta y crema), tipografías (Playfair Display y Manrope), espacios, radios y sombras duras.
+- Componentes base reutilizables: botón, campo de texto, tarjeta, chip y pantalla.
+- Navegación inferior con las pestañas Explorar, Buscar, Plan y Perfil.
+- Vitrina temporal de componentes para revisarlos juntos.
+
+**Qué representa en la aplicación:** es el esqueleto visual: la barra de pestañas y el estilo que comparten todas las pantallas.
+
+**Cómo verlo:** en `app/`, `npm install` y `npx expo start`. Presiona `w` y entra a Perfil → Ver componentes.
+
 ## ¿Qué es RunaGo?
 
 RunaGo ayuda a jóvenes de 18 a 35 años (y también a turistas) a encontrar qué hacer cerca de ellos. Hay tres tipos de usuario:
