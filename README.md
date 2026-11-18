@@ -4,6 +4,21 @@ Plataforma web y Android para descubrir eventos, lugares y experiencias en Perú
 
 Proyecto de titulación (línea StartUp) de Tecsup.
 
+## Esta rama: `feature/modelo-datos`
+
+**Objetivo:** diseñar cómo se guarda la información de RunaGo en la base de datos.
+
+**Qué cambió:**
+
+- Modelo de datos con Prisma: usuarios con rol, categorías, lugares, eventos, favoritos, intereses, membresías, reseñas y fotos.
+- Primera migración en Supabase.
+- Seed con datos de ejemplo: 15 categorías, 8 lugares reales de Lima, eventos de prueba, un administrador y organizadores.
+- `docs/modelo-datos.md` y el diagrama entidad-relación (`docs/er-runago.png`).
+
+**Qué representa en la aplicación:** define todo lo que la app va a poder mostrar: los eventos con su lugar y categoría, los intereses de cada persona y lo que guarda en favoritos.
+
+**Cómo verlo:** en `api/`, `npx prisma migrate deploy` y `npm run db:seed`. Luego `npx prisma studio` para ver las tablas con datos.
+
 ## ¿Qué es RunaGo?
 
 RunaGo ayuda a jóvenes de 18 a 35 años (y también a turistas) a encontrar qué hacer cerca de ellos. Hay tres tipos de usuario:
